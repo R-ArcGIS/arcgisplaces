@@ -1,30 +1,8 @@
 use crate::{as_is_col, categories_to_df, location_to_sfg, nullable_point_to_sfg};
 use extendr_api::prelude::*;
 use serde_esri::places::{
-    query::PlaceResponse, AdditionalLocations, Address, Category, ChainInfo, ContactInfo, Hours,
-    HoursByDay, IconDetails, PlaceDetails, Point, Rating, SocialMedia, TimeRange,
+    query::PlaceResponse, Address, Hours, HoursByDay, PlaceDetails, TimeRange,
 };
-
-// pub struct PlaceDetails {
-
-//     pub additional_locations: Option<AdditionalLocations>,
-//     pub address: Option<Address>,
-//     pub categories: Option<Vec<Category>>,
-//     pub chains: Option<Vec<ChainInfo>>,
-//     pub contact_info: Option<ContactInfo>,
-//     pub description: Option<String>,
-//     pub hours: Option<Hours>,
-//     pub icon: Option<IconDetails>,
-//     pub location: Option<Point>,
-//     pub name: Option<String>,
-//     pub place_id: String,
-//     pub rating: Option<Rating>,
-//     pub social_media: Option<SocialMedia>,
-// }
-
-// Hours is a hierarchy:
-// Hours -> HoursByDay
-// HoursByDay -> TimeRange
 
 #[extendr]
 fn parse_place_details(x: Strings) -> List {
@@ -274,36 +252,6 @@ fn parse_time_range(day: &str, x: Option<Vec<TimeRange>>) -> (Vec<Rstr>, Vec<Rst
     times
 }
 
-fn parse_rating(x: Option<Rating>) -> Robj {
-    match x {
-        Some(xx) => {
-            let price = xx.price.map_or(Strings::from(Rstr::na()), |p| {
-                Strings::from(format!("{p:?}"))
-            });
-            data_frame!(price = price, user = xx.user)
-        }
-        None => data_frame!(price = Strings::from(Rstr::na()), Rfloat::na()),
-    }
-}
-
-fn parse_social_media(x: Option<SocialMedia>) -> Robj {
-    match x {
-        Some(xx) => {
-            data_frame!(
-                facebook_id = xx.facebook_id,
-                instagram = xx.instagram,
-                twitter = xx.twitter
-            )
-        }
-        None => {
-            data_frame!(
-                facebook_id = Strings::from(Rstr::na()),
-                instagram = Strings::from(Rstr::na()),
-                twitter = Strings::from(Rstr::na())
-            )
-        }
-    }
-}
 extendr_module! {
     mod place_details;
     fn parse_place_details;
