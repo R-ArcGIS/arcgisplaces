@@ -20,5 +20,7 @@ parse_category_details <- function(x) .Call(wrap__parse_category_details, x)
 
 near_point_ <- function(x, y, radius, category_id, search_text, token) .Call(wrap__near_point_, x, y, radius, category_id, search_text, token)
 
+parse_place_details <- function(x) .Call(wrap__parse_place_details, x)
+
 
 # nolint end

@@ -26,7 +26,28 @@ use serde_esri::places::{
 // Hours -> HoursByDay
 // HoursByDay -> TimeRange
 
-fn parse_place_details(x: PlaceDetails) {
+#[extendr]
+fn parse_place_details(x: Strings) -> List {
+    x.into_iter()
+        .map(|xi| {
+            if xi.is_na() {
+                ().into_robj()
+            } else {
+                parse_place_details_single(xi.as_str())
+            }
+        })
+        .collect::<List>()
+}
+
+fn parse_place_details_single(x: &str) -> Robj {
+    let res = serde_json::from_str::<PlaceResponse>(x);
+    match res {
+        Ok(place) => parse_place_details_(place.place_details),
+        Err(_) => ().into_robj(),
+    }
+}
+
+fn parse_place_details_(x: PlaceDetails) -> Robj {
     let PlaceDetails {
         additional_locations,
         address,
@@ -114,48 +135,48 @@ fn parse_place_details(x: PlaceDetails) {
 
     let (price, user) = match rating {
         Some(r) => {
-            let price = Rstr::from(format!("{:?}", r.price));
+            let price = Strings::from(Rstr::from(format!("{:?}", r.price)));
             (price, r.user)
         }
-        None => (Rstr::na(), None),
+        None => (Strings::from(Rstr::na()), None),
     };
 
     data_frame!(
-        place_id,
-        name,
-        description,
-        street_address,
-        extended,
-        po_box,
+        place_id = place_id,
+        name = name,
+        description = description,
+        street_address = street_address,
+        extended = extended,
+        po_box = po_box,
         neighborhood =
             as_is_col(neighborhood.map_or(Strings::from(Rstr::na()), |n| Strings::from_values(n))),
-        census_block_id,
-        locality,
-        designated_market_area,
-        post_town,
-        postcode,
-        region,
-        country,
-        admin_region,
-        drop_off,
-        front_door,
-        roof,
-        road,
-        categories = categories_to_df(categories.map_or(vec![], |f| f)),
+        census_block_id = census_block_id,
+        locality = locality,
+        designated_market_area = designated_market_area,
+        post_town = post_town,
+        postcode = postcode,
+        region = region,
+        country = country,
+        admin_region = admin_region,
+        drop_off = as_is_col(drop_off),
+        front_door = as_is_col(front_door),
+        roof = as_is_col(roof),
+        road = as_is_col(road),
+        categories = as_is_col(categories_to_df(categories.map_or(vec![], |f| f))),
         chains = as_is_col(chains),
-        email,
-        fax,
-        telephone,
-        website,
-        hours = parse_hours(hours),
-        icon_url,
-        facebook_id,
-        instagram,
-        twitter,
-        price,
-        user,
-        location = location_to_sfg(location)
-    );
+        email = email,
+        fax = fax,
+        telephone = telephone,
+        website = website,
+        hours = as_is_col(parse_hours(hours)),
+        icon_url = icon_url,
+        facebook_id = facebook_id,
+        instagram = instagram,
+        twitter = twitter,
+        price = price,
+        user = user,
+        location = as_is_col(location_to_sfg(location))
+    )
 }
 
 fn parse_hours(x: Option<Hours>) -> Robj {
@@ -163,15 +184,15 @@ fn parse_hours(x: Option<Hours>) -> Robj {
         Some(xx) => {
             data_frame!(
                 opening_text = xx.opening_text,
-                opening = parse_hours_by_day(xx.opening),
-                popular = parse_hours_by_day(xx.popular)
+                opening = as_is_col(parse_hours_by_day(xx.opening)),
+                popular = as_is_col(parse_hours_by_day(xx.popular))
             )
         }
         None => {
             data_frame!(
                 opening_text = Strings::from(Rstr::na()),
-                opening = parse_hours_by_day(None),
-                popular = parse_hours_by_day(None)
+                opening = as_is_col(parse_hours_by_day(None)),
+                popular = as_is_col(parse_hours_by_day(None))
             )
         }
     }
@@ -246,7 +267,7 @@ fn parse_time_range(day: &str, x: Option<Vec<TimeRange>>) -> (Vec<Rstr>, Vec<Rst
                 from.push(Rstr::from(time.from));
                 to.push(Rstr::from(time.to));
             }
-            (vec![Rstr::from(day); 3], from, to)
+            (vec![Rstr::from(day); n], from, to)
         }
         None => (vec![Rstr::from(day)], vec![Rstr::na()], vec![Rstr::na()]),
     };
@@ -285,4 +306,5 @@ fn parse_social_media(x: Option<SocialMedia>) -> Robj {
 }
 extendr_module! {
     mod place_details;
+    fn parse_place_details;
 }
