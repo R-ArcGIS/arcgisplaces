@@ -1,7 +1,8 @@
+use crate::{as_is_col, categories_to_df, location_to_sfg, nullable_point_to_sfg};
 use extendr_api::prelude::*;
 use serde_esri::places::{
     query::PlaceResponse, AdditionalLocations, Address, Category, ChainInfo, ContactInfo, Hours,
-    IconDetails, Point, Rating, SocialMedia,
+    HoursByDay, IconDetails, PlaceDetails, Point, Rating, SocialMedia, TimeRange,
 };
 
 // pub struct PlaceDetails {
@@ -24,6 +25,233 @@ use serde_esri::places::{
 // Hours is a hierarchy:
 // Hours -> HoursByDay
 // HoursByDay -> TimeRange
+
+fn parse_place_details(x: PlaceDetails) {
+    let PlaceDetails {
+        additional_locations,
+        address,
+        categories,
+        chains,
+        contact_info,
+        description,
+        hours,
+        icon,
+        location,
+        name,
+        place_id,
+        rating,
+        social_media,
+    } = x;
+
+    let (drop_off, front_door, road, roof) = match additional_locations {
+        Some(locs) => {
+            let drop = nullable_point_to_sfg(locs.drop_off);
+            let front = nullable_point_to_sfg(locs.front_door);
+            let road = nullable_point_to_sfg(locs.road);
+            let roof = nullable_point_to_sfg(locs.roof);
+
+            (drop, front, road, roof)
+        }
+        None => {
+            let null = nullable_point_to_sfg(None);
+            (null.clone(), null.clone(), null.clone(), null)
+        }
+    };
+
+    let Address {
+        admin_region,
+        census_block_id,
+        country,
+        designated_market_area,
+        extended,
+        locality,
+        neighborhood,
+        po_box,
+        postcode,
+        post_town,
+        region,
+        street_address,
+    } = if let Some(addr) = address {
+        addr
+    } else {
+        Address {
+            admin_region: None,
+            census_block_id: None,
+            country: None,
+            designated_market_area: None,
+            extended: None,
+            locality: None,
+            neighborhood: None,
+            po_box: None,
+            postcode: None,
+            post_town: None,
+            region: None,
+            street_address: None,
+        }
+    };
+
+    let chains = match chains {
+        Some(cc) => {
+            let chain_names = cc.into_iter().map(|c| Rstr::from(c.name));
+            Strings::from_iter(chain_names)
+        }
+        None => Strings::from(Rstr::na()),
+    };
+
+    let (email, fax, telephone, website) = match contact_info {
+        Some(ci) => (ci.email, ci.fax, ci.telephone, ci.website),
+        None => (None, None, None, None),
+    };
+
+    let icon_url = icon.map_or(Strings::from(Rstr::na()), |i| {
+        Strings::from(Rstr::from(i.url))
+    });
+
+    let (facebook_id, instagram, twitter) = match social_media {
+        Some(sm) => (sm.facebook_id, sm.instagram, sm.twitter),
+        None => (None, None, None),
+    };
+
+    let (price, user) = match rating {
+        Some(r) => {
+            let price = Rstr::from(format!("{:?}", r.price));
+            (price, r.user)
+        }
+        None => (Rstr::na(), None),
+    };
+
+    data_frame!(
+        place_id,
+        name,
+        description,
+        street_address,
+        extended,
+        po_box,
+        neighborhood =
+            as_is_col(neighborhood.map_or(Strings::from(Rstr::na()), |n| Strings::from_values(n))),
+        census_block_id,
+        locality,
+        designated_market_area,
+        post_town,
+        postcode,
+        region,
+        country,
+        admin_region,
+        drop_off,
+        front_door,
+        roof,
+        road,
+        categories = categories_to_df(categories.map_or(vec![], |f| f)),
+        chains = as_is_col(chains),
+        email,
+        fax,
+        telephone,
+        website,
+        hours = parse_hours(hours),
+        icon_url,
+        facebook_id,
+        instagram,
+        twitter,
+        price,
+        user,
+        location = location_to_sfg(location)
+    );
+}
+
+fn parse_hours(x: Option<Hours>) -> Robj {
+    match x {
+        Some(xx) => {
+            data_frame!(
+                opening_text = xx.opening_text,
+                opening = parse_hours_by_day(xx.opening),
+                popular = parse_hours_by_day(xx.popular)
+            )
+        }
+        None => {
+            data_frame!(
+                opening_text = Strings::from(Rstr::na()),
+                opening = parse_hours_by_day(None),
+                popular = parse_hours_by_day(None)
+            )
+        }
+    }
+}
+
+fn parse_hours_by_day(x: Option<HoursByDay>) -> Robj {
+    if x.is_none() {
+        return data_frame!(
+            day_of_week = Strings::from(Rstr::na()),
+            from = Strings::from(Rstr::na()),
+            to = Strings::from(Rstr::na())
+        );
+    }
+
+    let x = x.unwrap();
+
+    let sunday = parse_time_range("Sunday", x.sunday);
+    let monday = parse_time_range("Monday", x.monday);
+    let tuesday = parse_time_range("Tuesday", x.tuesday);
+    let wednesday = parse_time_range("Wednesday", x.wednesday);
+    let thursday = parse_time_range("Thursday", x.thursday);
+    let friday = parse_time_range("Friday", x.friday);
+    let saturday = parse_time_range("Saturday", x.saturday);
+
+    let dow = Strings::from_iter(
+        sunday
+            .0
+            .into_iter()
+            .chain(monday.0.into_iter())
+            .chain(tuesday.0.into_iter())
+            .chain(wednesday.0.into_iter())
+            .chain(thursday.0.into_iter())
+            .chain(friday.0.into_iter())
+            .chain(saturday.0.into_iter()),
+    );
+
+    let from = Strings::from_iter(
+        sunday
+            .1
+            .into_iter()
+            .chain(monday.1.into_iter())
+            .chain(tuesday.1.into_iter())
+            .chain(wednesday.1.into_iter())
+            .chain(thursday.1.into_iter())
+            .chain(friday.1.into_iter())
+            .chain(saturday.1.into_iter()),
+    );
+
+    let to = Strings::from_iter(
+        sunday
+            .2
+            .into_iter()
+            .chain(monday.2.into_iter())
+            .chain(tuesday.2.into_iter())
+            .chain(wednesday.2.into_iter())
+            .chain(thursday.2.into_iter())
+            .chain(friday.2.into_iter())
+            .chain(saturday.2.into_iter()),
+    );
+
+    data_frame!(day_of_week = dow, from = from, to = to)
+}
+
+fn parse_time_range(day: &str, x: Option<Vec<TimeRange>>) -> (Vec<Rstr>, Vec<Rstr>, Vec<Rstr>) {
+    let times = match x {
+        Some(x) => {
+            let n = x.len();
+            let mut from = Vec::with_capacity(n);
+            let mut to = Vec::with_capacity(n);
+
+            for time in x {
+                from.push(Rstr::from(time.from));
+                to.push(Rstr::from(time.to));
+            }
+            (vec![Rstr::from(day); 3], from, to)
+        }
+        None => (vec![Rstr::from(day)], vec![Rstr::na()], vec![Rstr::na()]),
+    };
+    times
+}
 
 fn parse_rating(x: Option<Rating>) -> Robj {
     match x {

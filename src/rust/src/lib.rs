@@ -6,7 +6,7 @@ mod place_details;
 
 use serde_esri::places::{
     query::{PlacesClient, WithinExtentQueryParams},
-    Category, PlaceResult, Point,
+    Category, NullablePoint, PlaceResult, Point,
 };
 
 // Convert a point to an sfg point
@@ -14,6 +14,22 @@ pub fn location_to_sfg(x: Option<Point>) -> Robj {
     match x {
         Some(place) => {
             let Point { x, y } = place;
+            Doubles::from_values([x, y])
+                .into_robj()
+                .set_class(&["XY", "POINT", "sfg"])
+                .unwrap()
+        }
+        None => Doubles::from_values([Rfloat::na(), Rfloat::na()])
+            .into_robj()
+            .set_class(&["XY", "POINT", "sfg"])
+            .unwrap(),
+    }
+}
+
+pub fn nullable_point_to_sfg(x: Option<NullablePoint>) -> Robj {
+    match x {
+        Some(place) => {
+            let NullablePoint { x, y } = place;
             Doubles::from_values([x, y])
                 .into_robj()
                 .set_class(&["XY", "POINT", "sfg"])
