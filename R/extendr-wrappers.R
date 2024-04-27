@@ -12,6 +12,8 @@ NULL
 
 places_within_extent <- function(xmin, ymin, xmax, ymax, token) .Call(wrap__places_within_extent, xmin, ymin, xmax, ymax, token)
 
+parse_categories <- function(x) .Call(wrap__parse_categories, x)
+
 #' Parse /categories/{categoryId} results vectorized
 #' @keywords internal
 parse_category_details <- function(x) .Call(wrap__parse_category_details, x)

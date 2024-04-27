@@ -1,3 +1,4 @@
+use crate::as_is_col;
 use extendr_api::prelude::*;
 use serde_esri::places::CategoryDetails;
 
@@ -42,15 +43,6 @@ fn category_details_to_df(x: CategoryDetails) -> Robj {
         parents = as_is_col(parents)
     )
     .into()
-}
-
-// Create an object that can be used in a column of a dataframe
-fn as_is_col(x: impl IntoRobj) -> Robj {
-    let robj = x.into_robj();
-    List::from_values([robj])
-        .into_robj()
-        .set_class(&["AsIs"])
-        .unwrap()
 }
 
 extendr_module! {

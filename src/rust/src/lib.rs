@@ -1,4 +1,5 @@
 use extendr_api::prelude::*;
+mod categories;
 mod category_details;
 mod nearpoint;
 
@@ -98,12 +99,22 @@ fn categories_to_df(categories: Vec<Category>) -> Robj {
     df.into_dataframe().into_robj()
 }
 
+// Create an object that can be used in a column of a dataframe
+pub fn as_is_col(x: impl IntoRobj) -> Robj {
+    let robj = x.into_robj();
+    List::from_values([robj])
+        .into_robj()
+        .set_class(&["AsIs"])
+        .unwrap()
+}
+
 // Macro to generate exports.
 // This ensures exported functions are registered with R.
 // See corresponding C code in `entrypoint.c`.
 extendr_module! {
     mod arcgisplaces;
     fn places_within_extent;
+    use categories;
     use category_details;
     use nearpoint;
 }

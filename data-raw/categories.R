@@ -27,7 +27,6 @@ resp <- arc_base_req(places_url(), token, "categories", query = c("f" = "json"))
 all_categories <- resp |>
   httr2::resp_body_string() |>
   RcppSimdJson::fparse() |> 
-  data_frame()
   purrr::pluck(1) |>
   data_frame() |>
   tidyr::unnest_longer(parents) |>
