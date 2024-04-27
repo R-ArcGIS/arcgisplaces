@@ -2,11 +2,29 @@ use extendr_api::prelude::*;
 mod categories;
 mod category_details;
 mod nearpoint;
+mod place_details;
 
 use serde_esri::places::{
     query::{PlacesClient, WithinExtentQueryParams},
     Category, PlaceResult, Point,
 };
+
+// Convert a point to an sfg point
+pub fn location_to_sfg(x: Option<Point>) -> Robj {
+    match x {
+        Some(place) => {
+            let Point { x, y } = place;
+            Doubles::from_values([x, y])
+                .into_robj()
+                .set_class(&["XY", "POINT", "sfg"])
+                .unwrap()
+        }
+        None => Doubles::from_values([Rfloat::na(), Rfloat::na()])
+            .into_robj()
+            .set_class(&["XY", "POINT", "sfg"])
+            .unwrap(),
+    }
+}
 
 #[extendr]
 fn places_within_extent(
@@ -117,4 +135,5 @@ extendr_module! {
     use categories;
     use category_details;
     use nearpoint;
+    use place_details;
 }

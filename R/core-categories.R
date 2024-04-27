@@ -12,6 +12,14 @@
 #' \dontrun{
 #' categories("Coffee Shop")
 #' }
+#' @returns
+#'
+#' A `data.frame` with columns:
+#' - `category_id`: the unique identifier for the category
+#' - `full_label`: a list of character vectors containing all labels for the category
+#' - `icon_url`: a character vector containing the icon URL if present
+#' - `parents`: a list of character vectors containing the parent `category_id` values
+#'
 categories <- function(
     search_text = NULL,
     icon = NULL,
@@ -33,6 +41,7 @@ categories <- function(
     error_call = rlang::caller_env()
   )
 
+  # parse result and combine into a single data frame with list cols
   res <- data_frame(
     rbind_results(
       parse_categories(httr2::resp_body_string(resp))

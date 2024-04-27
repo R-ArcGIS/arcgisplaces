@@ -67,8 +67,16 @@ get_place_details <- function(
   req <- httr2::req_url_query(b_req, icon = icon)
 
   resp <- httr2::req_perform(req)
-  res <- httr2::resp_body_string(resp) |>
-    RcppSimdJson::fparse()
-
-  res
+  res <-
+    RcppSimdJson::fparse(httr2::resp_body_string(resp))[[1]]
+  res$placeDetails
 }
+
+# Flatten Address
+# use categories_to_df() to create a data.frame
+# flat map over chain info
+# flatten contactInfo
+# flatten social media
+# Hours by day, should be made into a single dataframe
+# cols: day, from, to
+# res$hours$popular
