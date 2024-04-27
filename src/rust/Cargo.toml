@@ -1,0 +1,16 @@
+[package]
+name = 'arcgisplaces'
+publish = false
+version = '0.1.0'
+edition = '2021'
+
+[lib]
+crate-type = [ 'staticlib' ]
+name = 'arcgisplaces'
+
+[dependencies]
+extendr-api = { version = '*', features = ["serde"] }
+serde_esri = { version = "0.3.1", features = ["places-client"] }
+
+[patch.crates-io]
+extendr-api = { git = "https://github.com/extendr/extendr" }
