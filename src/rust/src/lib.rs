@@ -1,4 +1,5 @@
 use extendr_api::prelude::*;
+mod category_details;
 mod nearpoint;
 
 use serde_esri::places::{
@@ -103,5 +104,6 @@ fn categories_to_df(categories: Vec<Category>) -> Robj {
 extendr_module! {
     mod arcgisplaces;
     fn places_within_extent;
+    use category_details;
     use nearpoint;
 }

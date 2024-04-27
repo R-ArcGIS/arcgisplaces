@@ -5,3 +5,18 @@ EPSG4326 <- structure(
   ),
   class = "crs"
 )
+
+
+places_url <- function() {
+  if (Sys.getenv("PLACES_ENV") == "dev") {
+    "https://placesdev-api.arcgis.com/arcgis/rest/services/places-service/v1"
+  } else {
+    "https://places-api.arcgis.com/arcgis/rest/services/places-service/v1"
+  }
+}
+
+
+data_frame <- function(x, call = rlang::caller_env()) {
+  check_data_frame(x, call = call)
+  structure(x, class = c("tbl", "data.frame"))
+}

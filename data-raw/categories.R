@@ -31,3 +31,5 @@ all_categories <- resp |>
   data_frame() |>
   tidyr::unnest_longer(parents) |>
   tidyr::unnest_longer(fullLabel)
+
+all_categories$categoryId

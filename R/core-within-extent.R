@@ -3,6 +3,10 @@ within_extent <- function(xmin, ymin, xmax, ymax, token = arc_token()) {
     places_within_extent(xmin, ymin, xmax, ymax, token)
   )
 
+  # TODO return SF object
+  # TODO create prototype object
+  # TODO return prototype object when 0 results are returned
+  # Refer to core-near-point.R
   # repair geometry into sfc
   results[["geometry"]] <- structure(
     results[["geometry"]],

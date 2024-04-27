@@ -18,10 +18,16 @@ x <- within_extent(
   35.65,
   139.75,
   35.66,
-  Sys.getenv("PLACES_DEV_KEY")
 )
 
 sf::st_combine(x$geometry) |>
   sf::st_centroid() |>
   sf::st_coordinates()
 
+category_details_(
+  "17119",
+  NA,
+  NA,
+  places_url(),
+  Sys.getenv("PLACES_DEV_KEY")
+)

@@ -30,11 +30,11 @@ near_point(
 \value{
 An \code{sf} object with columns
 \itemize{
-\item \code{place_id}:
-\item \code{name}: the name of the point of interest
-\item \code{distance}: a double vector of the distance from the search point
-\item \code{categories}: a \code{data.frame} with two columns \code{category_id} and \code{label}. Categories are uniquely identified by a categoryId. For example, \code{17119} identifies a "Bicycle Store" and \code{10051} identifies a "Stadium". Note that a single place can belong to multiple categories (for example, a petrol station could also have a super-market).
-\item \code{icon}: a character vector of the URL to the icon
+\item \code{place_id}: The unique Id of this place. The ID can be passed to \code{place_details()} to retrieve additional details.
+\item \code{name}: The name of the place, or point of interest. You can search for places by name using the searchText property
+\item \code{distance}: A double vector of the distance, in meters, from the place to the search point.
+\item \code{categories}: A \code{data.frame} with two columns \code{category_id} and \code{label}. Categories are uniquely identified by a categoryId. For example, \code{17119} identifies a "Bicycle Store" and \code{10051} identifies a "Stadium". Note that a single place can belong to multiple categories (for example, a petrol station could also have a super-market).
+\item \code{icon}: A character vector of the URL for an icon for this place or category in either svg, cim or png format.
 \item \code{geometry}: an \code{sfc_POINT} object in \code{EPSG:4326}
 }
 }
@@ -42,6 +42,7 @@ An \code{sf} object with columns
 Finds places that are within a given radius of a specified location. The returned places contain basic data such as name, category and location.
 }
 \examples{
+near_point(-117.194769, 34.057289)
 near_point(139.75, 35.66)
 }
 \references{
