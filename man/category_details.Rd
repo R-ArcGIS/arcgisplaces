@@ -47,7 +47,7 @@ Should the fallback fail, then the service will return category names in the def
 }
 }
 \examples{
-categories <- c(
+categoriy_id <- c(
   "12015", "11172", "15015", "19027", "13309", "16069", "19004",
   "13131", "18046", "15048"
 )

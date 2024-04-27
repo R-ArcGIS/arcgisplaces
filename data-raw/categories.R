@@ -20,13 +20,14 @@ places_url <- function() {
 token <- auth_key(Sys.getenv("PLACES_DEV_KEY"))
 set_arc_token(token)
 resp <- arc_base_req(places_url(), token, "categories", query = c("f" = "json")) |>
-  req_perform()
+  httr2::req_perform()
 
 # we could store this as an object for quick lookup
 # in data-raw
 all_categories <- resp |>
-  resp_body_string() |>
-  RcppSimdJson::fparse() |>
+  httr2::resp_body_string() |>
+  RcppSimdJson::fparse() |> 
+  data_frame()
   purrr::pluck(1) |>
   data_frame() |>
   tidyr::unnest_longer(parents) |>

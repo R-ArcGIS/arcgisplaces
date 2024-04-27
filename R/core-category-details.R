@@ -29,7 +29,7 @@
 #'
 #' @export
 #' @examples
-#' categories <- c(
+#' categoriy_id <- c(
 #'   "12015", "11172", "15015", "19027", "13309", "16069", "19004",
 #'   "13131", "18046", "15048"
 #' )
@@ -45,7 +45,7 @@ category_details <- function(
   check_character(category_id)
   check_string(icon, allow_null = TRUE)
   check_string(language, allow_null = TRUE)
-
+  # check icons
   if (!is.null(icon)) {
     rlang::arg_match0(icon, c("svg", "png", "cim"))
   }
@@ -74,9 +74,13 @@ category_details <- function(
 
   res_list <- parse_category_details(all_bodies)
 
-  data_frame(
+  res <- data_frame(
     rbind_results(res_list, .ptype = category_details_ptype())
   )
+  res[["full_label"]] <- unclass(res[["full_label"]])
+  res[["parents"]] <- unclass(res[["parents"]])
+
+  res
 }
 
 

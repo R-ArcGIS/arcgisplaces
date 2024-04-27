@@ -25,10 +25,7 @@ fn parse_category_details(x: Strings) -> List {
 
 // Takes a `CategoryDetails` struct and converts it into a data.frame
 fn category_details_to_df(x: CategoryDetails) -> Robj {
-    let full_label = Strings::from_values(x.full_label)
-        .into_robj()
-        .set_class(&["AsIs"])
-        .unwrap();
+    let full_label = Strings::from_values(x.full_label).into_robj();
 
     let icon_url = x.icon.map_or(Strings::from(Rstr::na()), |i| {
         Strings::from(Rstr::from(i.url))
