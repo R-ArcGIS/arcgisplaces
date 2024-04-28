@@ -34,7 +34,7 @@ You will also need the development version of
 [`{arcgisutils}`](https://github.com/R-ArcGIS/arcgisutils)
 
 ``` r
-if (requireNamespace("pak")) install.packages("pak")
+if (!requireNamespace("pak")) install.packages("pak")
 pak::pak("r-arcgis/arcgisutils")
 ```
 
