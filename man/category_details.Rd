@@ -47,11 +47,13 @@ Should the fallback fail, then the service will return category names in the def
 }
 }
 \examples{
+\dontrun{
 categoriy_id <- c(
   "12015", "11172", "15015", "19027", "13309", "16069", "19004",
   "13131", "18046", "15048"
 )
 category_details(categories)
+}
 }
 \references{
 \href{https://developers.arcgis.com/rest/places/categories-category-id-get}{API Documentation}

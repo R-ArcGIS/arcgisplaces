@@ -10,17 +10,17 @@
 #' @useDynLib arcgisplaces, .registration = TRUE
 NULL
 
-places_within_extent <- function(xmin, ymin, xmax, ymax, token) .Call(wrap__places_within_extent, xmin, ymin, xmax, ymax, token)
-
 parse_categories <- function(x) .Call(wrap__parse_categories, x)
 
-#' Parse /categories/{categoryId} results vectorized
+#' Parse `/categories/{categoryId}` results vectorized
 #' @keywords internal
 parse_category_details <- function(x) .Call(wrap__parse_category_details, x)
 
 near_point_ <- function(x, y, radius, category_id, search_text, token) .Call(wrap__near_point_, x, y, radius, category_id, search_text, token)
 
 parse_place_details <- function(x) .Call(wrap__parse_place_details, x)
+
+places_within_extent <- function(search_text, category_ids, icon, xmin, ymin, xmax, ymax, token, places_url) .Call(wrap__places_within_extent, search_text, category_ids, icon, xmin, ymin, xmax, ymax, token, places_url)
 
 
 # nolint end

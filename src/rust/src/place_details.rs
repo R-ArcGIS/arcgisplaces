@@ -113,7 +113,10 @@ fn parse_place_details_(x: PlaceDetails) -> Robj {
 
     let (price, user) = match rating {
         Some(r) => {
-            let price = Strings::from(Rstr::from(format!("{:?}", r.price)));
+            let price = r.price.map_or(Strings::from(Rstr::na()), |p| {
+                Strings::from(Rstr::from(format!("{p:?}")))
+            });
+
             (price, r.user)
         }
         None => (Strings::from(Rstr::na()), None),

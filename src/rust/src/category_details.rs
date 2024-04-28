@@ -3,7 +3,7 @@ use extendr_api::prelude::*;
 use serde_esri::places::CategoryDetails;
 
 #[extendr]
-/// Parse /categories/{categoryId} results vectorized
+/// Parse `/categories/{categoryId}` results vectorized
 /// @keywords internal
 fn parse_category_details(x: Strings) -> List {
     x.into_iter()

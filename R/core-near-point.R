@@ -19,9 +19,12 @@
 #' @param category_id Default `NULL`. A character vector which filters places to those that match the category IDs.
 #' @param search_text Default `NULL`. Free search text for places against names, categories etc. Must be a scalar value.
 #' @param icon Default `NULL`. Must be one of `"svg"`, `"png"` `"cim"`. Determines whether icons are returned and the type of icon to use with a place or category.
+#' @inheritParams arcgisutils::arc_base_req
 #' @examples
+#' \dontrun{
 #' near_point(-117.194769, 34.057289)
 #' near_point(139.75, 35.66)
+#' }
 #' @export
 near_point <- function(
     x, y,
@@ -29,7 +32,8 @@ near_point <- function(
     search_text = NULL,
     category_id = NULL,
     icon = NULL,
-    token = Sys.getenv("PLACES_DEV_KEY")) {
+    token = arc_token()) {
+  obj_check_token(token)
   # perform input checks
   check_number_decimal(radius, min = 1, max = 10000)
   check_string(search_text, allow_null = TRUE)
@@ -51,8 +55,16 @@ near_point <- function(
   }
 
   # send query to Rust
-  res <- near_point_(x, y, radius, category_id, search_text, token)
+  res <- near_point_(
+    x,
+    y,
+    radius,
+    category_id,
+    search_text,
+    token[["access_token"]]
+  )
 
+  # combine results
   res <- rbind_results(res)
 
   if (nrow(res) == 0) {

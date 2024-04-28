@@ -2,3 +2,8 @@
 ^\.Rproj\.user$
 ^data-raw$
 ^src/\.cargo$
+^LICENSE\.md$
+^dev$
+^README\.Rmd$
+^README\.md$
+^.Rprofile$

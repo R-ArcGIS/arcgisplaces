@@ -16,7 +16,6 @@
 #' @inheritParams near_point
 #' @param language Optional case-sensitive parameter to specify the preferred language to.
 #' @param .progress Default `TRUE`. Whether a progress bar should be provided.
-#' @inheritParams arcgisutils::arc_base_req
 #' @references [API Documentation](https://developers.arcgis.com/rest/places/categories-category-id-get)
 #'
 #' @returns
@@ -29,11 +28,13 @@
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' categoriy_id <- c(
 #'   "12015", "11172", "15015", "19027", "13309", "16069", "19004",
 #'   "13131", "18046", "15048"
 #' )
 #' category_details(categories)
+#' }
 category_details <- function(
     category_id,
     icon = NULL,

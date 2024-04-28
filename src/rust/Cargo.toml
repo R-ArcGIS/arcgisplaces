@@ -5,11 +5,11 @@ version = '0.1.0'
 edition = '2021'
 
 [lib]
-crate-type = [ 'staticlib' ]
+crate-type = ['staticlib']
 name = 'arcgisplaces'
 
 [dependencies]
-extendr-api = { version = '*', features = ["serde"] }
+extendr-api = { version = '*' }
 serde_esri = { version = "0.3.1", features = ["places-client"] }
 serde_json = "1.0.116"
 

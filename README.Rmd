@@ -1,0 +1,130 @@
+---
+output: github_document
+format: gfm
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# arcgisplaces
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
+arcgisplaces is an R package to interface with [ArcGIS Places Service](https://developers.arcgis.com/rest/places/).
+
+> The places service is a ready-to-use location service that can search for businesses and geographic locations around the world. It allows you to find, locate, and discover detailed information about each place.
+
+In order to use `{arcgisplaces}` you will need an ArcGIS Developers account. [Get started here.](https://developers.arcgis.com/documentation/mapping-apis-and-services/get-started/)
+
+## Installation
+
+You can install a binary of the development version of arcgisplaces from [r-universe](https://r-arcgis.r-universe.dev/arcgisplaces) with:
+
+``` r
+install.packages("arcgisgeocode", repos = "https://r-arcgis.r-universe.dev")
+```
+
+You will also need the development version of [`{arcgisutils}`](https://github.com/R-ArcGIS/arcgisutils)
+
+```r
+if (requireNamespace("pak")) install.packages("pak")
+pak::pak("r-arcgis/arcgisutils")
+```
+
+### Building from source
+
+Or, you can install the development version from [GitHub](https://github.com/r-arcgis/arcgisplaces). Note the development version requires an installation of Rust. See [rustup](https://rustup.rs/) for instructions to install Rust. 
+
+```r
+if (requireNamespace("pak")) install.packages("pak")
+pak::pak("r-arcgis/arcgisplaces")
+```
+
+## Usage
+
+Finding places: 
+
+- `near_point()`: search for places near a location.
+- `within_extent()`: search for places within an extent.
+- `place_details()`: get detailed information about the places returned from `near_point()` or `within_extent()`. 
+  - Note: see `fields` for the possible attributes to return for place details.
+
+Understanding categories: 
+
+- `categories()`: find categories by name or ID.
+- `category_details()`: get detailed information about the categories returned from `categories()`.
+
+- Find place attributes such as name, address, description, opening hours, price ratings, user ratings, and social links.
+
+
+## Examples
+
+```{r include = FALSE}
+library(sf)
+library(pillar)
+
+```
+
+`arcgisutils` is needed for authentication. The Places API supports either using an API key via `auth_key()` or one generated via OAuth2 using either `auth_client()` or `auth_code()`. See [API documentation](https://developers.arcgis.com/rest/places/#authentication) for more.
+
+```{r }
+library(arcgisutils)
+library(arcgisplaces)
+
+# Authenticate with a Developer Account API Key
+token <- auth_key()
+set_arc_token(token)
+```
+
+## Place search 
+
+You can **search for places near a location** with `near_point()`.
+
+```{r}
+coffee <- near_point(x = -122.334, y = 47.655, search_text = "Coffee")
+coffee
+```
+
+Locations are returned as an sf object with the place ID, the place name, distance from the search point, a character vector of categories. 
+
+
+::: callout-tip
+
+`arcgisplaces` will return an sf object, but the sf package is not required to work with the package. The `sf` print method will not be used unless the package is loaded. If package size is a consideration—i.e. deploying an app in a Docker container—consider using `wk` or `rsgeo`.
+
+:::
+
+Details for the places can be fetched using `place_details()`. The possible fields are [documented online](https://developers.arcgis.com/rest/places/place-id-get/#requestedfields) as well as contained in the exported vector `fields`. Because pricing is dependent upon which fields are requested, it is a required argument. 
+
+To get the add `requested_fields = "hours"`. Note, that the other possible fields will still be present in the result, but completely empty. 
+
+```{r}
+details <- place_details(
+  coffee$place_id,
+  requested_fields = "rating",
+  .progress = FALSE # remove progress bar
+)
+
+details[c("price", "user")]
+```
+
+Or, you can search for places within a bounding box using `within_extent()`. This could be quite handy for searching within current map bounds, for example. 
+
+```{r}
+bakeries <- within_extent(
+  -70.356, 43.588, -70.176, 43.7182,
+  category_id = "13002"
+)
+
+bakeries[c("name")]
+```

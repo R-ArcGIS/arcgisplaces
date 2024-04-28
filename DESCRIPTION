@@ -5,16 +5,21 @@ Authors@R:
     person("Josiah", "Parry", , "josiah.parry@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9910-865X"))
 Description: What the package does (one paragraph).
-License: MIT + file LICENSE
+License: Apache License (>= 2)
 Encoding: UTF-8
 Language: en
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 Imports: 
-    arcgisutils,
+    arcgisutils (>= 0.2.0.9000),
+    cli,
     httr2,
-    rlang
+    rlang,
+    wk
 Config/rextendr/version: 0.3.1.9000
 SystemRequirements: Cargo (Rust's package manager), rustc
 Suggests: 
     sf
+Depends: 
+    R (>= 2.10)
+LazyData: true

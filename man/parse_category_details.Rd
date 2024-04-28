@@ -2,11 +2,11 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{parse_category_details}
 \alias{parse_category_details}
-\title{Parse /categories/{categoryId} results vectorized}
+\title{Parse \verb{/categories/\{categoryId\}} results vectorized}
 \usage{
 parse_category_details(x)
 }
 \description{
-Parse /categories/{categoryId} results vectorized
+Parse \verb{/categories/\{categoryId\}} results vectorized
 }
 \keyword{internal}

@@ -3,11 +3,9 @@ mod categories;
 mod category_details;
 mod nearpoint;
 mod place_details;
+mod within_extent;
 
-use serde_esri::places::{
-    query::{PlacesClient, WithinExtentQueryParams},
-    Category, NullablePoint, PlaceResult, Point,
-};
+use serde_esri::places::{Category, NullablePoint, PlaceResult, Point};
 
 // Convert a point to an sfg point
 pub fn location_to_sfg(x: Option<Point>) -> Robj {
@@ -40,42 +38,6 @@ pub fn nullable_point_to_sfg(x: Option<NullablePoint>) -> Robj {
             .set_class(&["XY", "POINT", "sfg"])
             .unwrap(),
     }
-}
-
-#[extendr]
-fn places_within_extent(
-    // search_text: Option<String>,
-    xmin: f64,
-    ymin: f64,
-    xmax: f64,
-    ymax: f64,
-    token: &str,
-) -> List {
-    // TODO: categories (make into an R object), icon,
-    let client = PlacesClient::new(
-        "https://placesdev-api.arcgis.com/arcgis/rest/services/places-service/v1",
-        token,
-    );
-
-    let params = WithinExtentQueryParams {
-        xmin,
-        ymin,
-        xmax,
-        ymax,
-        category_ids: None,
-        search_text: None,
-        icon: None,
-    };
-
-    client
-        .within_extent(params)
-        .unwrap()
-        .into_iter()
-        .map(|xi| match xi {
-            Ok(x) => place_to_df(x),
-            Err(_) => ().into_robj(),
-        })
-        .collect::<List>()
 }
 
 // Take a place result and turn it into a dataframe
@@ -147,9 +109,9 @@ pub fn as_is_col(x: impl IntoRobj) -> Robj {
 // See corresponding C code in `entrypoint.c`.
 extendr_module! {
     mod arcgisplaces;
-    fn places_within_extent;
     use categories;
     use category_details;
     use nearpoint;
     use place_details;
+    use within_extent;
 }

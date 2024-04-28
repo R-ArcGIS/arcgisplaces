@@ -20,3 +20,10 @@ data_frame <- function(x, call = rlang::caller_env()) {
   check_data_frame(x, call = call)
   structure(x, class = c("tbl", "data.frame"))
 }
+
+compute_sfc_bbox <- function(x) {
+  bb <- unclass(wk::wk_bbox(x))
+  structure(unlist(bb[1:4]), crs = EPSG4326)
+}
+
+

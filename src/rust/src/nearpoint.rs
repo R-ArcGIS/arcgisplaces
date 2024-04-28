@@ -29,8 +29,6 @@ fn near_point_(
         Some(cats)
     };
 
-    rprintln!("{:?}", category_id);
-
     let params = NearPointQueryParams {
         x,
         y,

@@ -3,5 +3,7 @@
 export(categories)
 export(category_details)
 export(near_point)
+export(place_details)
+export(within_extent)
 import(arcgisutils)
 useDynLib(arcgisplaces, .registration = TRUE)
