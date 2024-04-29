@@ -37,7 +37,7 @@ install.packages("arcgisgeocode", repos = "https://r-arcgis.r-universe.dev")
 You will also need the development version of [`{arcgisutils}`](https://github.com/R-ArcGIS/arcgisutils)
 
 ```r
-if (requireNamespace("pak")) install.packages("pak")
+if (!requireNamespace("pak")) install.packages("pak")
 pak::pak("r-arcgis/arcgisutils")
 ```
 
@@ -46,7 +46,7 @@ pak::pak("r-arcgis/arcgisutils")
 Or, you can install the development version from [GitHub](https://github.com/r-arcgis/arcgisplaces). Note the development version requires an installation of Rust. See [rustup](https://rustup.rs/) for instructions to install Rust. 
 
 ```r
-if (requireNamespace("pak")) install.packages("pak")
+if (!requireNamespace("pak")) install.packages("pak")
 pak::pak("r-arcgis/arcgisplaces")
 ```
 
