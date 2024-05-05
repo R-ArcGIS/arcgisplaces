@@ -19,4 +19,3 @@ extendr-api = { git = "https://github.com/extendr/extendr" }
 
 [profile.release]
 lto = true
-strip = true
