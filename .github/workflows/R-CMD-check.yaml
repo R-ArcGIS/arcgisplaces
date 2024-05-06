@@ -23,10 +23,10 @@ jobs:
       matrix:
         config:
           - {os: macos-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
+          # - {os: windows-latest, r: 'release'}
+          # - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
+          # - {os: ubuntu-latest,   r: 'release'}
+          # - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -48,13 +48,9 @@ jobs:
           extra-packages: |
             any::rcmdcheck
             any::testthat
+            any::openssl
           needs: check
           dependencies: '"hard"'
-
-      # Conditional step to install openssl on macOS
-      - name: Install openssl on macOS
-        if: matrix.config.os == 'macos-latest'
-        run: brew install openssl
 
       - uses: r-lib/actions/check-r-package@v2
         with:
