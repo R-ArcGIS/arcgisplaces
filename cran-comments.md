@@ -23,3 +23,9 @@ R-hub Runners:
 
 - MacOS (r-devel): https://github.com/R-ArcGIS/arcgisplaces/actions/runs/9051533790
 - Linux (r-devel): https://github.com/R-ArcGIS/arcgisplaces/actions/runs/9051670244
+
+## Software Naming
+
+ArcGIS is a brand name and not the name of a specific software. 
+The phrase 'Places service' refers to a spefic API which can be considered
+software. This is quoted in the DESCRIPTION file.
