@@ -24,7 +24,7 @@ on:
         type: string
 
 jobs:
-
+  NOT_CRAN: false
   setup:
     runs-on: ubuntu-latest
     outputs:
