@@ -5,6 +5,7 @@ use serde_esri::places::CategoryDetails;
 #[extendr]
 /// Parse `/categories/{categoryId}` results vectorized
 /// @keywords internal
+/// @noRd
 fn parse_category_details(x: Strings) -> List {
     x.into_iter()
         .map(|xi| {

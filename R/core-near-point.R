@@ -108,6 +108,7 @@ near_point <- function(
 
 #' Create a prototype data.frame for the near-point query
 #' @keywords internal
+#' @noRd
 near_point_ptype <- function() {
   geometry <- structure(
     list(),

@@ -24,6 +24,9 @@ or related function}
 
 \item{.progress}{Default \code{TRUE}. Whether a progress bar should be provided.}
 }
+\value{
+an sf object
+}
 \description{
 The \verb{/places/\{placeId\}} request returns details for a place.
 }

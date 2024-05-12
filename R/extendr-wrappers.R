@@ -14,6 +14,7 @@ parse_categories <- function(x) .Call(wrap__parse_categories, x)
 
 #' Parse `/categories/{categoryId}` results vectorized
 #' @keywords internal
+#' @noRd
 parse_category_details <- function(x) .Call(wrap__parse_category_details, x)
 
 near_point_ <- function(x, y, radius, category_id, search_text, token) .Call(wrap__near_point_, x, y, radius, category_id, search_text, token)

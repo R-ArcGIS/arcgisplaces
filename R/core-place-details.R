@@ -24,14 +24,13 @@
 #' res <- place_details(place_ids)
 #' }
 #' @references [API Documentation](https://developers.arcgis.com/rest/places/place-id-get/)
+#' @returns an sf object
 place_details <- function(
     place_id,
     requested_fields,
     icon = NULL,
     token = arc_token(),
-    .progress = TRUE
-) {
-
+    .progress = TRUE) {
   # place_id must be a character vector with no NA values
   check_character(place_id)
 
@@ -113,7 +112,5 @@ place_details <- function(
     )
   )
 
-res
-
+  res
 }
-

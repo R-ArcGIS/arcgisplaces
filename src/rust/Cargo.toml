@@ -19,3 +19,4 @@ extendr-api = { git = "https://github.com/extendr/extendr" }
 
 [profile.release]
 lto = true
+codegen-units = 1
