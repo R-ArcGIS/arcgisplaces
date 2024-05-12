@@ -29,5 +29,3 @@ Suggests:
 Depends: 
     R (>= 2.10)
 LazyData: true
-Remotes: 
-    r-arcgis/arcgisutils

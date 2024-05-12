@@ -11,3 +11,6 @@
 ^src/vendor/$
 ^src/rust/vendor$
 .github
+^cran-comments\.md$
+.gitattributes
+cran-comments.md
