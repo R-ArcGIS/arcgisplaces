@@ -29,3 +29,7 @@ R-hub Runners:
 ArcGIS is a brand name and not the name of a specific software. 
 The phrase 'Places service' refers to a spefic API which can be considered
 software. This is quoted in the DESCRIPTION file.
+
+## Resubmission
+
+This submission adds auto-linking to the Places Service API documentation per request by Beni Altmann.

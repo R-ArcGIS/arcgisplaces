@@ -11,6 +11,7 @@ Description: The ArcGIS 'Places service' is a ready-to-use location
     bounding box, filter based on categories, or provide search text.
     'arcgisplaces' integrates with 'sf' for out of the box compatibility
     with other spatial libraries.
+    <https://developers.arcgis.com/rest/places/>
 License: Apache License (>= 2)
 Encoding: UTF-8
 Language: en
