@@ -88,21 +88,18 @@ near_point <- function(
     )
   )
 
-  # recreate bbox values
-  xmin <- min(x) - radius
-  xmax <- max(x) + radius
-  ymin <- min(y) - radius
-  ymax <- max(y) + radius
-
   # repair geometry
   res[["geometry"]] <- structure(
     res$geometry,
     precision = 0L,
-    bbox = construct_bbox(xmin, ymin, xmax, ymax),
+    # bbox = construct_bbox(xmin, ymin, xmax, ymax),
     crs = EPSG4326,
     class = c("sfc_POINT", "sfc")
   )
 
+  # calculate the bounding box
+  bbox_raw <- wk::wk_bbox(res[["geometry"]])
+  attr(res[["geometry"]], "bbox") <- do.call(construct_bbox, bbox_raw)
   res
 }
 
