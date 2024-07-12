@@ -4,25 +4,18 @@ library(arcgis)
 library(bsicons)
 library(leaflet)
 
+# you will need an API key:
+# https://location.arcgis.com/sign-up/
+
 # authorize your account with arcgisplaces
 set_arc_token(auth_key())
-
-# fetch the available categories
-cats_raw <- categories()
-
-# makethe category list smaller
-cats <- cats_raw |>
-  dplyr::filter(lengths(parents) == 1) |>
-  tidyr::unnest(full_label) |>
-  dplyr::group_by(category_id) |>
-  dplyr::slice(2)
 
 # start the base map
 map <- leaflet() |>
   addProviderTiles(providers$Esri.WorldGrayCanvas) |>
   setView(-117.16018863360692, 32.70568725886412, 15)
 
-ui <- page_sidebar(
+ui <- page_fillable(
   leafletOutput("map"),
   div(
     class = "btn-group position-absolute bg-white mt-4 start-50 translate-middle-x",
@@ -51,18 +44,6 @@ ui <- page_sidebar(
       class = "btn btn-outline-primary",
       bsicons::bs_icon("fuel-pump")
     )
-  ),
-  sidebar = sidebar(
-    textInput(
-      "search_value",
-      label = "Search text",
-    ),
-    selectizeInput("categories",
-      "Select search categories",
-      choices = setNames(cats$category_id, cats$full_label), multiple = TRUE
-    ),
-    actionButton("submit", "Search"),
-    uiOutput("suggests")
   )
 )
 
