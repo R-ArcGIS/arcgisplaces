@@ -38,9 +38,15 @@ fn near_point_(
         icon: None,
     };
 
-    client
-        .near_point(params)
-        .unwrap()
+    let res = client
+        .near_point(params);
+
+    if let Err(e) = res {
+        eprintln!("{}", e.to_string());
+        return list!()
+    }
+    
+    res.unwrap()
         .into_iter()
         .map(|xi| match xi {
             Ok(x) => place_to_df(x),
