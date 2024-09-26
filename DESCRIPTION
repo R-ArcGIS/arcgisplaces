@@ -19,7 +19,7 @@ RoxygenNote: 7.3.1
 Imports: 
     arcgisutils (>= 0.3.0),
     cli,
-    httr2 (>= 1.0.0),
+    httr2 (>= 1.0.5),
     rlang,
     wk
 Config/rextendr/version: 0.3.1.9000
