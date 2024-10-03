@@ -60,7 +60,7 @@
 </h2>
 <p>You can install a binary of the development version of arcgisplaces from <a href="https://r-arcgis.r-universe.dev/arcgisplaces" class="external-link">r-universe</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"arcgisgeocode"</span>, repos <span class="op">=</span> <span class="st">"https://r-arcgis.r-universe.dev"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"arcgisplaces"</span>, repos <span class="op">=</span> <span class="st">"https://r-arcgis.r-universe.dev"</span><span class="op">)</span></span></code></pre></div>
 <p>You will also need the development version of <a href="https://github.com/R-ArcGIS/arcgisutils" class="external-link"><code>{arcgisutils}</code></a></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
@@ -70,7 +70,7 @@
 </h3>
 <p>Or, you can install the development version from <a href="https://github.com/r-arcgis/arcgisplaces" class="external-link">GitHub</a>. Note the development version requires an installation of Rust. See <a href="https://rustup.rs/" class="external-link">rustup</a> for instructions to install Rust.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"r-arcgis/arcgisplaces"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
@@ -100,14 +100,9 @@
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-<p><code>arcgisutils</code> is needed for authentication. The Places API supports either using an API key via <code><a href="https://r.esri.com/arcgisutils/reference/auth.html" class="external-link">auth_key()</a></code> or one generated via OAuth2 using either <code><a href="https://r.esri.com/arcgisutils/reference/auth.html" class="external-link">auth_client()</a></code> or <code><a href="https://r.esri.com/arcgisutils/reference/auth.html" class="external-link">auth_code()</a></code>. See <a href="https://developers.arcgis.com/rest/places/#authentication" class="external-link">API documentation</a> for more.</p>
+<p><a href="https://github.com/R-ArcGIS/arcgisutils" class="external-link">arcgisutils</a> is needed for authentication. The Places API supports either using an API key via <code><a href="https://r.esri.com/arcgisutils/reference/auth.html" class="external-link">auth_key()</a></code> or one generated via OAuth2 using either <code><a href="https://r.esri.com/arcgisutils/reference/auth.html" class="external-link">auth_client()</a></code> or <code><a href="https://r.esri.com/arcgisutils/reference/auth.html" class="external-link">auth_code()</a></code>. See the <a href="https://developers.arcgis.com/rest/places/#authentication" class="external-link">Places API documentation</a> for more.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/R-ArcGIS/arcgisutils" class="external-link">arcgisutils</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'arcgisutils'</span></span>
-<span><span class="co">#&gt; The following object is masked from 'package:base':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     %||%</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">arcgisplaces</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Authenticate with a Developer Account API Key</span></span>
@@ -121,30 +116,26 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">coffee</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/near_point.html">near_point</a></span><span class="op">(</span>x <span class="op">=</span> <span class="op">-</span><span class="fl">122.334</span>, y <span class="op">=</span> <span class="fl">47.655</span>, search_text <span class="op">=</span> <span class="st">"Coffee"</span><span class="op">)</span></span>
 <span><span class="va">coffee</span></span>
-<span><span class="co">#&gt; Simple feature collection with 6 features and 5 fields</span></span>
+<span><span class="co">#&gt; Simple feature collection with 8 features and 5 fields</span></span>
 <span><span class="co">#&gt; Geometry type: POINT</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
-<span><span class="co">#&gt; Bounding box:  xmin: -1122.334 ymin: -952.345 xmax: 877.666 ymax: 1047.655</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -122.3426 ymin: 47.65539 xmax: -122.3255 ymax: 47.66175</span></span>
 <span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span><span class="co">#&gt;                           place_id                                 name</span></span>
-<span><span class="co">#&gt; 1 f6059fc575735b5e3f558c96ab69e6f6 Irwin's Neighborhood Bakery and Cafe</span></span>
-<span><span class="co">#&gt; 2 88a10ccf031f02ef2697591f72e1e169                          Fuel Coffee</span></span>
-<span><span class="co">#&gt; 3 a8c6da1aa0d08fe96e5d80d0f3b3de03                     Friday Afternoon</span></span>
-<span><span class="co">#&gt; 4 906da2fe5164619199a2f2ba9c99a650                            Starbucks</span></span>
-<span><span class="co">#&gt; 5 d49bac9ae79ebfc88dc2c070ad0ee91c                    HHD Heuk Hwa Dang</span></span>
-<span><span class="co">#&gt; 6 4bdfa82268e67a698d0b8ea3d2df3853                          A Muddy Cup</span></span>
-<span><span class="co">#&gt;   distance   categories icon                   geometry</span></span>
-<span><span class="co">#&gt; 1     97.0 c("13002.... &lt;NA&gt; POINT (-122.3328 47.65539)</span></span>
-<span><span class="co">#&gt; 2    723.8 c("13035.... &lt;NA&gt; POINT (-122.3369 47.66122)</span></span>
-<span><span class="co">#&gt; 3    740.8 c("13036.... &lt;NA&gt;  POINT (-122.342 47.65895)</span></span>
-<span><span class="co">#&gt; 4    767.3 13035, C.... &lt;NA&gt; POINT (-122.3361 47.66175)</span></span>
-<span><span class="co">#&gt; 5    964.1 13033, B.... &lt;NA&gt; POINT (-122.3425 47.66153)</span></span>
-<span><span class="co">#&gt; 6    964.2 c("13035.... &lt;NA&gt; POINT (-122.3255 47.66149)</span></span></code></pre></div>
+<span><span class="co">#&gt; # A data frame: 8 × 6</span></span>
+<span><span class="co">#&gt;   place_id             name  distance categories icon              geometry</span></span>
+<span><span class="co">#&gt; * &lt;chr&gt;                &lt;chr&gt;    &lt;dbl&gt; &lt;I&lt;list&gt;&gt;  &lt;chr&gt;          &lt;POINT [°]&gt;</span></span>
+<span><span class="co">#&gt; 1 f6059fc575735b5e3f5… Irwi…      97  &lt;df&gt;       &lt;NA&gt;  (-122.3328 47.65539)</span></span>
+<span><span class="co">#&gt; 2 88a10ccf031f02ef269… Fuel…     724. &lt;df&gt;       &lt;NA&gt;  (-122.3369 47.66122)</span></span>
+<span><span class="co">#&gt; 3 5cc2d40bf37bff28738… Youn…     728. &lt;df&gt;       &lt;NA&gt;  (-122.3331 47.66152)</span></span>
+<span><span class="co">#&gt; 4 a8c6da1aa0d08fe96e5… Frid…     741. &lt;df&gt;       &lt;NA&gt;   (-122.342 47.65895)</span></span>
+<span><span class="co">#&gt; 5 906da2fe5164619199a… Star…     767. &lt;df&gt;       &lt;NA&gt;  (-122.3361 47.66175)</span></span>
+<span><span class="co">#&gt; 6 957c39de6e0a0eb8afe… Mosa…     774  &lt;df&gt;       &lt;NA&gt;  (-122.3276 47.66048)</span></span>
+<span><span class="co">#&gt; 7 4bdfa82268e67a698d0… A Mu…     964. &lt;df&gt;       &lt;NA&gt;  (-122.3255 47.66149)</span></span>
+<span><span class="co">#&gt; 8 090286b411e3337850e… The …     976. &lt;df&gt;       &lt;NA&gt;  (-122.3426 47.66162)</span></span></code></pre></div>
 <p>Locations are returned as an sf object with the place ID, the place name, distance from the search point, a character vector of categories.</p>
-<blockquote>
-<p>[!TIP]</p>
+<div class="callout-tip">
 <p><code>arcgisplaces</code> will return an sf object, but the sf package is not required to work with the package. The <code>sf</code> print method will not be used unless the package is loaded. If package size is a consideration—i.e. deploying an app in a Docker container—consider using <code>wk</code> or <code>rsgeo</code>.</p>
-</blockquote>
+</div>
 <p>Details for the places can be fetched using <code><a href="reference/place_details.html">place_details()</a></code>. The possible fields are <a href="https://developers.arcgis.com/rest/places/place-id-get/#requestedfields" class="external-link">documented online</a> as well as contained in the exported vector <code>fields</code>. Because pricing is dependent upon which fields are requested, it is a required argument.</p>
 <p>To get the add <code>requested_fields = "hours"</code>. Note, that the other possible fields will still be present in the result, but completely empty.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -155,18 +146,22 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">details</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"price"</span>, <span class="st">"user"</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="co">#&gt; Simple feature collection with 6 features and 2 fields</span></span>
+<span><span class="co">#&gt; Simple feature collection with 8 features and 2 fields</span></span>
 <span><span class="co">#&gt; Geometry type: POINT</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
 <span><span class="co">#&gt; Bounding box:  xmin: Inf ymin: Inf xmax: -Inf ymax: -Inf</span></span>
 <span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span><span class="co">#&gt;      price user    location</span></span>
-<span><span class="co">#&gt; 1    Cheap  4.0 POINT EMPTY</span></span>
-<span><span class="co">#&gt; 2    Cheap  3.9 POINT EMPTY</span></span>
-<span><span class="co">#&gt; 3 Moderate   NA POINT EMPTY</span></span>
-<span><span class="co">#&gt; 4    Cheap  3.4 POINT EMPTY</span></span>
-<span><span class="co">#&gt; 5     &lt;NA&gt;   NA POINT EMPTY</span></span>
-<span><span class="co">#&gt; 6    Cheap  3.9 POINT EMPTY</span></span></code></pre></div>
+<span><span class="co">#&gt; # A data frame: 8 × 3</span></span>
+<span><span class="co">#&gt;   price     user    location</span></span>
+<span><span class="co">#&gt; * &lt;chr&gt;    &lt;dbl&gt; &lt;POINT [°]&gt;</span></span>
+<span><span class="co">#&gt; 1 Cheap      4.1       EMPTY</span></span>
+<span><span class="co">#&gt; 2 Cheap      3.9       EMPTY</span></span>
+<span><span class="co">#&gt; 3 &lt;NA&gt;      NA         EMPTY</span></span>
+<span><span class="co">#&gt; 4 Moderate  NA         EMPTY</span></span>
+<span><span class="co">#&gt; 5 Cheap      3.4       EMPTY</span></span>
+<span><span class="co">#&gt; 6 Cheap      3         EMPTY</span></span>
+<span><span class="co">#&gt; 7 Cheap      4         EMPTY</span></span>
+<span><span class="co">#&gt; 8 &lt;NA&gt;      NA         EMPTY</span></span></code></pre></div>
 <p>Or, you can search for places within a bounding box using <code><a href="reference/within_extent.html">within_extent()</a></code>. This could be quite handy for searching within current map bounds, for example.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bakeries</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/within_extent.html">within_extent</a></span><span class="op">(</span></span>
@@ -175,23 +170,25 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bakeries</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="co">#&gt; Simple feature collection with 29 features and 1 field</span></span>
+<span><span class="co">#&gt; Simple feature collection with 24 features and 1 field</span></span>
 <span><span class="co">#&gt; Geometry type: POINT</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
 <span><span class="co">#&gt; Bounding box:  xmin: -70.356 ymin: 43.588 xmax: -70.176 ymax: 43.7182</span></span>
 <span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span><span class="co">#&gt; First 10 features:</span></span>
-<span><span class="co">#&gt;                       name                   geometry</span></span>
-<span><span class="co">#&gt; 1           Crumbl Cookies POINT (-70.33067 43.67675)</span></span>
-<span><span class="co">#&gt; 2       Electric Bike Cafe  POINT (-70.2864 43.63655)</span></span>
-<span><span class="co">#&gt; 3  Gross Confection Bakery POINT (-70.25428 43.65763)</span></span>
-<span><span class="co">#&gt; 4           Dina’s Cuisine POINT (-70.28725 43.67695)</span></span>
-<span><span class="co">#&gt; 5           Lolli and Pops POINT (-70.33512 43.63377)</span></span>
-<span><span class="co">#&gt; 6    C Salt Gourmet Market  POINT (-70.2271 43.59174)</span></span>
-<span><span class="co">#&gt; 7          Bread &amp; Friends POINT (-70.25693 43.65514)</span></span>
-<span><span class="co">#&gt; 8     BenReuben’s Knishery POINT (-70.25299 43.63748)</span></span>
-<span><span class="co">#&gt; 9        Katie Made Bakery POINT (-70.24992 43.66449)</span></span>
-<span><span class="co">#&gt; 10           Cinnamon Girl POINT (-70.27412 43.68086)</span></span></code></pre></div>
+<span><span class="co">#&gt; # A data frame: 24 × 2</span></span>
+<span><span class="co">#&gt;    name                                geometry</span></span>
+<span><span class="co">#&gt;  * &lt;chr&gt;                            &lt;POINT [°]&gt;</span></span>
+<span><span class="co">#&gt;  1 Panera Bread            (-70.32966 43.67791)</span></span>
+<span><span class="co">#&gt;  2 Crumbl Cookies          (-70.33067 43.67675)</span></span>
+<span><span class="co">#&gt;  3 Electric Bike Cafe       (-70.2864 43.63655)</span></span>
+<span><span class="co">#&gt;  4 BenReuben’s Knishery    (-70.25299 43.63748)</span></span>
+<span><span class="co">#&gt;  5 Two Fat Cats Bakery      (-70.26101 43.6327)</span></span>
+<span><span class="co">#&gt;  6 Auntie Anne's           (-70.33517 43.63372)</span></span>
+<span><span class="co">#&gt;  7 Lolli and Pops          (-70.33512 43.63377)</span></span>
+<span><span class="co">#&gt;  8 Panera Bread              (-70.3303 43.6367)</span></span>
+<span><span class="co">#&gt;  9 Cookie Jar Pastry Shop  (-70.22644 43.63367)</span></span>
+<span><span class="co">#&gt; 10 Bake Maine Pottery Cafe (-70.25334 43.66708)</span></span>
+<span><span class="co">#&gt; # ℹ 14 more rows</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
