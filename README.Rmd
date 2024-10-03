@@ -31,7 +31,7 @@ In order to use `{arcgisplaces}` you will need an ArcGIS Developers account. [Ge
 You can install a binary of the development version of arcgisplaces from [r-universe](https://r-arcgis.r-universe.dev/arcgisplaces) with:
 
 ``` r
-install.packages("arcgisgeocode", repos = "https://r-arcgis.r-universe.dev")
+install.packages("arcgisplaces", repos = "https://r-arcgis.r-universe.dev")
 ```
 
 You will also need the development version of [`{arcgisutils}`](https://github.com/R-ArcGIS/arcgisutils)
@@ -75,7 +75,7 @@ library(pillar)
 
 ```
 
-`arcgisutils` is needed for authentication. The Places API supports either using an API key via `auth_key()` or one generated via OAuth2 using either `auth_client()` or `auth_code()`. See [API documentation](https://developers.arcgis.com/rest/places/#authentication) for more.
+`{arcgisutils}` is needed for authentication. The Places API supports either using an API key via `auth_key()` or one generated via OAuth2 using either `auth_client()` or `auth_code()`. See the [Places API documentation](https://developers.arcgis.com/rest/places/#authentication) for more.
 
 ```{r }
 library(arcgisutils)

@@ -27,7 +27,7 @@ You can install a binary of the development version of arcgisplaces from
 [r-universe](https://r-arcgis.r-universe.dev/arcgisplaces) with:
 
 ``` r
-install.packages("arcgisgeocode", repos = "https://r-arcgis.r-universe.dev")
+install.packages("arcgisplaces", repos = "https://r-arcgis.r-universe.dev")
 ```
 
 You will also need the development version of
@@ -46,7 +46,7 @@ version requires an installation of Rust. See
 [rustup](https://rustup.rs/) for instructions to install Rust.
 
 ``` r
-if (requireNamespace("pak")) install.packages("pak")
+if (!requireNamespace("pak")) install.packages("pak")
 pak::pak("r-arcgis/arcgisplaces")
 ```
 
@@ -73,19 +73,14 @@ Understanding categories:
 
 ## Examples
 
-`arcgisutils` is needed for authentication. The Places API supports
+`{arcgisutils}` is needed for authentication. The Places API supports
 either using an API key via `auth_key()` or one generated via OAuth2
-using either `auth_client()` or `auth_code()`. See [API
+using either `auth_client()` or `auth_code()`. See the [Places API
 documentation](https://developers.arcgis.com/rest/places/#authentication)
 for more.
 
 ``` r
 library(arcgisutils)
-#> 
-#> Attaching package: 'arcgisutils'
-#> The following object is masked from 'package:base':
-#> 
-#>     %||%
 library(arcgisplaces)
 
 # Authenticate with a Developer Account API Key
@@ -100,37 +95,36 @@ You can **search for places near a location** with `near_point()`.
 ``` r
 coffee <- near_point(x = -122.334, y = 47.655, search_text = "Coffee")
 coffee
-#> Simple feature collection with 6 features and 5 fields
+#> Simple feature collection with 8 features and 5 fields
 #> Geometry type: POINT
 #> Dimension:     XY
-#> Bounding box:  xmin: -1122.334 ymin: -952.345 xmax: 877.666 ymax: 1047.655
+#> Bounding box:  xmin: -122.3426 ymin: 47.65539 xmax: -122.3255 ymax: 47.66175
 #> Geodetic CRS:  WGS 84
-#>                           place_id                                 name
-#> 1 f6059fc575735b5e3f558c96ab69e6f6 Irwin's Neighborhood Bakery and Cafe
-#> 2 88a10ccf031f02ef2697591f72e1e169                          Fuel Coffee
-#> 3 a8c6da1aa0d08fe96e5d80d0f3b3de03                     Friday Afternoon
-#> 4 906da2fe5164619199a2f2ba9c99a650                            Starbucks
-#> 5 d49bac9ae79ebfc88dc2c070ad0ee91c                    HHD Heuk Hwa Dang
-#> 6 4bdfa82268e67a698d0b8ea3d2df3853                          A Muddy Cup
-#>   distance   categories icon                   geometry
-#> 1     97.0 c("13002.... <NA> POINT (-122.3328 47.65539)
-#> 2    723.8 c("13035.... <NA> POINT (-122.3369 47.66122)
-#> 3    740.8 c("13036.... <NA>  POINT (-122.342 47.65895)
-#> 4    767.3 13035, C.... <NA> POINT (-122.3361 47.66175)
-#> 5    964.1 13033, B.... <NA> POINT (-122.3425 47.66153)
-#> 6    964.2 c("13035.... <NA> POINT (-122.3255 47.66149)
+#> # A data frame: 8 × 6
+#>   place_id             name  distance categories icon              geometry
+#> * <chr>                <chr>    <dbl> <I<list>>  <chr>          <POINT [°]>
+#> 1 f6059fc575735b5e3f5… Irwi…      97  <df>       <NA>  (-122.3328 47.65539)
+#> 2 88a10ccf031f02ef269… Fuel…     724. <df>       <NA>  (-122.3369 47.66122)
+#> 3 5cc2d40bf37bff28738… Youn…     728. <df>       <NA>  (-122.3331 47.66152)
+#> 4 a8c6da1aa0d08fe96e5… Frid…     741. <df>       <NA>   (-122.342 47.65895)
+#> 5 906da2fe5164619199a… Star…     767. <df>       <NA>  (-122.3361 47.66175)
+#> 6 957c39de6e0a0eb8afe… Mosa…     774  <df>       <NA>  (-122.3276 47.66048)
+#> 7 4bdfa82268e67a698d0… A Mu…     964. <df>       <NA>  (-122.3255 47.66149)
+#> 8 090286b411e3337850e… The …     976. <df>       <NA>  (-122.3426 47.66162)
 ```
 
 Locations are returned as an sf object with the place ID, the place
 name, distance from the search point, a character vector of categories.
 
-> [!TIP]
->
-> `arcgisplaces` will return an sf object, but the sf package is not
-> required to work with the package. The `sf` print method will not be
-> used unless the package is loaded. If package size is a
-> consideration—i.e. deploying an app in a Docker container—consider
-> using `wk` or `rsgeo`.
+<div class="callout-tip">
+
+`arcgisplaces` will return an sf object, but the sf package is not
+required to work with the package. The `sf` print method will not be
+used unless the package is loaded. If package size is a
+consideration—i.e. deploying an app in a Docker container—consider using
+`wk` or `rsgeo`.
+
+</div>
 
 Details for the places can be fetched using `place_details()`. The
 possible fields are [documented
@@ -150,18 +144,22 @@ details <- place_details(
 )
 
 details[c("price", "user")]
-#> Simple feature collection with 6 features and 2 fields
+#> Simple feature collection with 8 features and 2 fields
 #> Geometry type: POINT
 #> Dimension:     XY
 #> Bounding box:  xmin: Inf ymin: Inf xmax: -Inf ymax: -Inf
 #> Geodetic CRS:  WGS 84
-#>      price user    location
-#> 1    Cheap  4.0 POINT EMPTY
-#> 2    Cheap  3.9 POINT EMPTY
-#> 3 Moderate   NA POINT EMPTY
-#> 4    Cheap  3.4 POINT EMPTY
-#> 5     <NA>   NA POINT EMPTY
-#> 6    Cheap  3.9 POINT EMPTY
+#> # A data frame: 8 × 3
+#>   price     user    location
+#> * <chr>    <dbl> <POINT [°]>
+#> 1 Cheap      4.1       EMPTY
+#> 2 Cheap      3.9       EMPTY
+#> 3 <NA>      NA         EMPTY
+#> 4 Moderate  NA         EMPTY
+#> 5 Cheap      3.4       EMPTY
+#> 6 Cheap      3         EMPTY
+#> 7 Cheap      4         EMPTY
+#> 8 <NA>      NA         EMPTY
 ```
 
 Or, you can search for places within a bounding box using
@@ -175,21 +173,23 @@ bakeries <- within_extent(
 )
 
 bakeries[c("name")]
-#> Simple feature collection with 29 features and 1 field
+#> Simple feature collection with 24 features and 1 field
 #> Geometry type: POINT
 #> Dimension:     XY
 #> Bounding box:  xmin: -70.356 ymin: 43.588 xmax: -70.176 ymax: 43.7182
 #> Geodetic CRS:  WGS 84
-#> First 10 features:
-#>                       name                   geometry
-#> 1           Crumbl Cookies POINT (-70.33067 43.67675)
-#> 2       Electric Bike Cafe  POINT (-70.2864 43.63655)
-#> 3  Gross Confection Bakery POINT (-70.25428 43.65763)
-#> 4           Dina’s Cuisine POINT (-70.28725 43.67695)
-#> 5           Lolli and Pops POINT (-70.33512 43.63377)
-#> 6    C Salt Gourmet Market  POINT (-70.2271 43.59174)
-#> 7          Bread & Friends POINT (-70.25693 43.65514)
-#> 8     BenReuben’s Knishery POINT (-70.25299 43.63748)
-#> 9        Katie Made Bakery POINT (-70.24992 43.66449)
-#> 10           Cinnamon Girl POINT (-70.27412 43.68086)
+#> # A data frame: 24 × 2
+#>    name                                geometry
+#>  * <chr>                            <POINT [°]>
+#>  1 Panera Bread            (-70.32966 43.67791)
+#>  2 Crumbl Cookies          (-70.33067 43.67675)
+#>  3 Electric Bike Cafe       (-70.2864 43.63655)
+#>  4 BenReuben’s Knishery    (-70.25299 43.63748)
+#>  5 Two Fat Cats Bakery      (-70.26101 43.6327)
+#>  6 Auntie Anne's           (-70.33517 43.63372)
+#>  7 Lolli and Pops          (-70.33512 43.63377)
+#>  8 Panera Bread              (-70.3303 43.6367)
+#>  9 Cookie Jar Pastry Shop  (-70.22644 43.63367)
+#> 10 Bake Maine Pottery Cafe (-70.25334 43.66708)
+#> # ℹ 14 more rows
 ```
