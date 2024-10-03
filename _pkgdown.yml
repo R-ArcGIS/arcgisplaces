@@ -2,3 +2,20 @@ url: ~
 template:
   bootstrap: 5
 
+navbar:
+  structure:
+    right:  [search, github]
+
+reference:
+
+- title: Places
+  contents:
+  - near_point
+  - within_extent
+  - place_details
+  - fields
+- title: Categories
+  contents:
+  - categories
+  - category_details
+  
