@@ -4,9 +4,9 @@
 \name{arcgisplaces-package}
 \alias{arcgisplaces}
 \alias{arcgisplaces-package}
-\title{arcgisplaces: What the Package Does (One Line, Title Case)}
+\title{arcgisplaces: Search for POIs using ArcGIS 'Places Service'}
 \description{
-What the package does (one paragraph).
+The ArcGIS 'Places service' is a ready-to-use location service that can search for businesses and geographic locations around the world. It allows you to find, locate, and discover detailed information about each place. Query for places near a point, within a bounding box, filter based on categories, or provide search text. 'arcgisplaces' integrates with 'sf' for out of the box compatibility with other spatial libraries. Learn more in the 'Places service' API reference \url{https://developers.arcgis.com/rest/places/}.
 }
 \author{
 \strong{Maintainer}: Josiah Parry \email{josiah.parry@gmail.com} (\href{https://orcid.org/0000-0001-9910-865X}{ORCID})

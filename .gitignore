@@ -1,2 +1,8 @@
+src/rust/vendor
+CRAN-SUBMISSION
+config.log
+config.status
+autom4te.cache
 .Rproj.user
 .Rprofile
+docs
