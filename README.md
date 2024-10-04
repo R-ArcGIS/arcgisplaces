@@ -1,4 +1,5 @@
 
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # arcgisplaces
@@ -116,15 +117,13 @@ coffee
 Locations are returned as an sf object with the place ID, the place
 name, distance from the search point, a character vector of categories.
 
-<div class="callout-tip">
-
-`arcgisplaces` will return an sf object, but the sf package is not
-required to work with the package. The `sf` print method will not be
-used unless the package is loaded. If package size is a
-consideration—i.e. deploying an app in a Docker container—consider using
-`wk` or `rsgeo`.
-
-</div>
+> [!TIP]
+>
+> `arcgisplaces` will return an sf object, but the sf package is not
+> required to work with the package. The `sf` print method will not be
+> used unless the package is loaded. If package size is a
+> consideration—i.e. deploying an app in a Docker container—consider
+> using `wk` or `rsgeo`.
 
 Details for the places can be fetched using `place_details()`. The
 possible fields are [documented
