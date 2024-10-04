@@ -133,9 +133,10 @@
 <span><span class="co">#&gt; 7 4bdfa82268e67a698d0… A Mu…     964. &lt;df&gt;       &lt;NA&gt;  (-122.3255 47.66149)</span></span>
 <span><span class="co">#&gt; 8 090286b411e3337850e… The …     976. &lt;df&gt;       &lt;NA&gt;  (-122.3426 47.66162)</span></span></code></pre></div>
 <p>Locations are returned as an sf object with the place ID, the place name, distance from the search point, a character vector of categories.</p>
-<div class="callout-tip">
+<blockquote>
+<p>[!TIP]</p>
 <p><code>arcgisplaces</code> will return an sf object, but the sf package is not required to work with the package. The <code>sf</code> print method will not be used unless the package is loaded. If package size is a consideration—i.e. deploying an app in a Docker container—consider using <code>wk</code> or <code>rsgeo</code>.</p>
-</div>
+</blockquote>
 <p>Details for the places can be fetched using <code><a href="reference/place_details.html">place_details()</a></code>. The possible fields are <a href="https://developers.arcgis.com/rest/places/place-id-get/#requestedfields" class="external-link">documented online</a> as well as contained in the exported vector <code>fields</code>. Because pricing is dependent upon which fields are requested, it is a required argument.</p>
 <p>To get the add <code>requested_fields = "hours"</code>. Note, that the other possible fields will still be present in the result, but completely empty.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
