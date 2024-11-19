@@ -22,7 +22,7 @@ Imports:
     httr2 (>= 1.0.5),
     rlang,
     wk
-Config/rextendr/version: 0.3.1.9000
+Config/rextendr/version: 0.3.1.9001
 SystemRequirements: Cargo (Rust's package manager), rustc, OpenSSL
 Suggests: 
     sf

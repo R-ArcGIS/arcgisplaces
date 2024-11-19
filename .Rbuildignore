@@ -19,3 +19,5 @@ cran-comments.md
 ^docs$
 ^pkgdown$
 ^\.github$
+^src/Makevars$
+^src/Makevars\.win$

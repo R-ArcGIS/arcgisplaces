@@ -6,3 +6,5 @@ autom4te.cache
 .Rproj.user
 .Rprofile
 docs
+src/Makevars
+src/Makevars.win
