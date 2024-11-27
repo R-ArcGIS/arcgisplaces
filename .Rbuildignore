@@ -2,6 +2,7 @@
 ^\.Rproj\.user$
 ^data-raw$
 ^src/\.cargo$
+^src/rust/target$
 ^LICENSE\.md$
 ^dev$
 ^README\.Rmd$
