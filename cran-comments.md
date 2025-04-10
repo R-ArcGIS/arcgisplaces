@@ -1,13 +1,11 @@
-This is a maintenance release to address WARNs in CRAN checks.
+This is a maintainance release to prevent archival.
 
 ## R CMD check results
 
-This package vendors **Rust dependencies** resulting in an 18mb .xz file. 
+This package vendors **Rust dependencies** resulting in a large .xz file. 
 The final installation size is 2.8mb on MacOS.
 
->  Size of tarball: 18112805 bytes
-
-0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 1 notes
 
 * This is a new release.
 
@@ -20,11 +18,6 @@ GitHub Actions:
 - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
 - {os: ubuntu-latest,   r: 'release'}
 - {os: ubuntu-latest,   r: 'oldrel-1'}
-
-R-hub Runners: 
-
-- MacOS (r-devel): https://github.com/R-ArcGIS/arcgisplaces/actions/runs/9051533790
-- Linux (r-devel): https://github.com/R-ArcGIS/arcgisplaces/actions/runs/9051670244
 
 ## Software Naming
 
