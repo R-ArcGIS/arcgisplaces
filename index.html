@@ -38,6 +38,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/R-ArcGIS/arcgisplaces/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -54,7 +55,7 @@
 <blockquote>
 <p>The places service is a ready-to-use location service that can search for businesses and geographic locations around the world. It allows you to find, locate, and discover detailed information about each place.</p>
 </blockquote>
-<p>In order to use <code>{arcgisplaces}</code> you will need an ArcGIS Developers account. <a href="https://developers.arcgis.com/documentation/mapping-apis-and-services/get-started/" class="external-link">Get started here.</a></p>
+<p>In order to use <a href="https://github.com/R-ArcGIS/arcgisplaces" class="external-link">arcgisplaces</a> you will need an ArcGIS Developers account. <a href="https://developers.arcgis.com/documentation/mapping-apis-and-services/get-started/" class="external-link">Get started here.</a></p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -100,14 +101,14 @@
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-<p><a href="https://github.com/R-ArcGIS/arcgisutils" class="external-link">arcgisutils</a> is needed for authentication. The Places API supports either using an API key via <code><a href="https://r.esri.com/arcgisutils/reference/auth.html" class="external-link">auth_key()</a></code> or one generated via OAuth2 using either <code><a href="https://r.esri.com/arcgisutils/reference/auth.html" class="external-link">auth_client()</a></code> or <code><a href="https://r.esri.com/arcgisutils/reference/auth.html" class="external-link">auth_code()</a></code>. See the <a href="https://developers.arcgis.com/rest/places/#authentication" class="external-link">Places API documentation</a> for more.</p>
+<p><a href="https://github.com/R-ArcGIS/arcgisutils" class="external-link">arcgisutils</a> is needed for authentication. The Places API supports either using an API key via <code><a href="https://rdrr.io/pkg/arcgisutils/man/auth.html" class="external-link">auth_key()</a></code> or one generated via OAuth2 using either <code><a href="https://rdrr.io/pkg/arcgisutils/man/auth.html" class="external-link">auth_client()</a></code> or <code><a href="https://rdrr.io/pkg/arcgisutils/man/auth.html" class="external-link">auth_code()</a></code>. See the <a href="https://developers.arcgis.com/rest/places/#authentication" class="external-link">Places API documentation</a> for more.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/R-ArcGIS/arcgisutils" class="external-link">arcgisutils</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">arcgisplaces</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/R-ArcGIS/arcgisplaces" class="external-link">arcgisplaces</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Authenticate with a Developer Account API Key</span></span>
-<span><span class="va">token</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.esri.com/arcgisutils/reference/auth.html" class="external-link">auth_key</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://r.esri.com/arcgisutils/reference/token.html" class="external-link">set_arc_token</a></span><span class="op">(</span><span class="va">token</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">token</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/arcgisutils/man/auth.html" class="external-link">auth_key</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/arcgisutils/man/token.html" class="external-link">set_arc_token</a></span><span class="op">(</span><span class="va">token</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="place-search">Place search<a class="anchor" aria-label="anchor" href="#place-search"></a>
@@ -196,6 +197,8 @@
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=arcgisplaces" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/R-ArcGIS/arcgisplaces/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/R-ArcGIS/arcgisplaces/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -218,7 +221,8 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Josiah Parry <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-9910-865X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Josiah Parry <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-9910-865X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
@@ -238,7 +242,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer>
