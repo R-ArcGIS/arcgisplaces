@@ -1,16 +1,20 @@
 Package: arcgisplaces
 Title: Search for POIs using ArcGIS 'Places Service'
 Version: 0.1.2
-Authors@R: 
+Authors@R: c(
     person("Josiah", "Parry", , "josiah.parry@gmail.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0001-9910-865X"))
+           comment = c(ORCID = "0000-0001-9910-865X")),
+    person("Kenneth", "Vernon", role = "ctb",
+           comment = c(ORCID = "0000-0003-0098-5092"))
+  )
 Description: The ArcGIS 'Places service' is a ready-to-use location
     service that can search for businesses and geographic locations around
     the world. It allows you to find, locate, and discover detailed
     information about each place. Query for places near a point, within a
     bounding box, filter based on categories, or provide search text.
     'arcgisplaces' integrates with 'sf' for out of the box compatibility
-    with other spatial libraries. Learn more in the 'Places service' API reference <https://developers.arcgis.com/rest/places/>.
+    with other spatial libraries. Learn more in the 'Places service' API
+    reference <https://developers.arcgis.com/rest/places/>.
 License: Apache License (>= 2)
 Encoding: UTF-8
 Language: en
@@ -29,3 +33,7 @@ Suggests:
 Depends: 
     R (>= 4.2)
 LazyData: true
+URL: https://github.com/R-ArcGIS/arcgisplaces,
+    https://developers.arcgis.com/r-bridge/api-reference/arcgisplaces/,
+    https://r.esri.com/arcgisplaces/
+BugReports: https://github.com/R-ArcGIS/arcgisplaces/issues
