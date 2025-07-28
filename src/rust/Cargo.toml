@@ -17,3 +17,8 @@ serde_json = "1.0.116"
 [profile.release]
 lto = true
 codegen-units = 1
+
+[patch.crates-io]
+serde_esri = { path = "/Users/josiahparry/github/serde_esri", features = [
+    "places-client",
+] }

@@ -27,12 +27,14 @@
 #' }
 #' @export
 near_point <- function(
-    x, y,
-    radius = 1000.0,
-    search_text = NULL,
-    category_id = NULL,
-    icon = NULL,
-    token = arc_token()) {
+  x,
+  y,
+  radius = 1000.0,
+  search_text = NULL,
+  category_id = NULL,
+  icon = NULL,
+  token = arc_token()
+) {
   obj_check_token(token)
   # perform input checks
   check_number_decimal(radius, min = 1, max = 10000)
@@ -47,11 +49,15 @@ near_point <- function(
   }
 
   if (!rlang::is_double(x)) {
-    cli::cli_abort("{.arg x} must be a numeric vector. Found {obj_type_friendly(x)}")
+    cli::cli_abort(
+      "{.arg x} must be a numeric vector. Found {obj_type_friendly(x)}"
+    )
   }
 
   if (!rlang::is_double(y)) {
-    cli::cli_abort("{.arg y} must be a numeric vector. Found {obj_type_friendly(x)}")
+    cli::cli_abort(
+      "{.arg y} must be a numeric vector. Found {obj_type_friendly(x)}"
+    )
   }
 
   # send query to Rust
@@ -61,6 +67,7 @@ near_point <- function(
     radius,
     category_id,
     search_text,
+    places_url(),
     token[["access_token"]]
   )
 
@@ -144,8 +151,6 @@ near_point_ptype <- function() {
 
   res
 }
-
-
 
 # # Here's the design:
 # # There isn't a way to know how to iterate through the places response

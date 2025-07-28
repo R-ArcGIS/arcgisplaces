@@ -9,14 +9,11 @@ fn near_point_(
     radius: Option<f64>,
     category_id: Strings,
     search_text: Option<String>,
-    // icon: Option<Icon>,
+    places_url: &str,
     token: &str,
 ) -> List {
     // TODO: categories (make into an R object), icon,
-    let client = PlacesClient::new(
-        "https://placesdev-api.arcgis.com/arcgis/rest/services/places-service/v1",
-        token,
-    );
+    let client = PlacesClient::new(places_url, token);
 
     let category_id = if category_id.len() == 0 {
         None
@@ -38,14 +35,13 @@ fn near_point_(
         icon: None,
     };
 
-    let res = client
-        .near_point(params);
+    let res = client.near_point(params);
 
     if let Err(e) = res {
         eprintln!("{}", e.to_string());
-        return list!()
+        return list!();
     }
-    
+
     res.unwrap()
         .into_iter()
         .map(|xi| match xi {
