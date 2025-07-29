@@ -21,10 +21,11 @@
 #' - `parents`: a list of character vectors containing the parent `category_id` values
 #'
 categories <- function(
-    search_text = NULL,
-    icon = NULL,
-    language = NULL,
-    token = arc_token()) {
+  search_text = NULL,
+  icon = NULL,
+  language = NULL,
+  token = arc_token()
+) {
   base_req <- arc_base_req(
     places_url(),
     token,
@@ -36,6 +37,7 @@ categories <- function(
       filter = search_text
     )
   )
+  
   resp <- httr2::req_perform(
     base_req,
     error_call = rlang::caller_env()

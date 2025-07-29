@@ -1,7 +1,7 @@
 use crate::place_to_df;
 use extendr_api::prelude::*;
 use serde_esri::places::{
-    query::{PlacesClient, WithinExtentQueryParams},
+    query::{PlacesClient, PlacesError, WithinExtentQueryParams},
     Icon,
 };
 
@@ -57,8 +57,16 @@ fn places_within_extent(
 
     let within_extent_res = client.within_extent(params);
 
-    if within_extent_res.is_err() {
-        return ().into_robj();
+    if let Err(e) = within_extent_res {
+        let res = match e {
+            PlacesError::RequestError(re) => {
+                eprintln!("{}", re.to_string());
+                list!().into_robj()
+            }
+            PlacesError::ApiError(ae) => extendr_api::serializer::to_robj(&ae).unwrap(),
+        };
+
+        return res;
     }
 
     within_extent_res

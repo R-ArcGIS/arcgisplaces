@@ -1,6 +1,6 @@
 use crate::place_to_df;
 use extendr_api::prelude::*;
-use serde_esri::places::query::{NearPointQueryParams, PlacesClient};
+use serde_esri::places::query::{NearPointQueryParams, PlacesClient, PlacesError};
 
 #[extendr]
 fn near_point_(
@@ -9,14 +9,11 @@ fn near_point_(
     radius: Option<f64>,
     category_id: Strings,
     search_text: Option<String>,
-    // icon: Option<Icon>,
+    places_url: &str,
     token: &str,
 ) -> List {
     // TODO: categories (make into an R object), icon,
-    let client = PlacesClient::new(
-        "https://placesdev-api.arcgis.com/arcgis/rest/services/places-service/v1",
-        token,
-    );
+    let client = PlacesClient::new(places_url, token);
 
     let category_id = if category_id.len() == 0 {
         None
@@ -38,14 +35,23 @@ fn near_point_(
         icon: None,
     };
 
-    let res = client
-        .near_point(params);
+    let res = client.near_point(params);
 
     if let Err(e) = res {
-        eprintln!("{}", e.to_string());
-        return list!()
+        let res = match e {
+            PlacesError::RequestError(re) => {
+                eprintln!("{}", re.to_string());
+                list!()
+            }
+            PlacesError::ApiError(ae) => extendr_api::serializer::to_robj(&ae)
+                .unwrap()
+                .as_list()
+                .unwrap(),
+        };
+
+        return res;
     }
-    
+
     res.unwrap()
         .into_iter()
         .map(|xi| match xi {

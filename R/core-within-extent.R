@@ -37,16 +37,15 @@
 #' }
 
 within_extent <- function(
-    xmin,
-    ymin,
-    xmax,
-    ymax,
-    search_text = NULL,
-    category_id = NULL,
-    icon = NULL,
-    token = arc_token()
+  xmin,
+  ymin,
+  xmax,
+  ymax,
+  search_text = NULL,
+  category_id = NULL,
+  icon = NULL,
+  token = arc_token()
 ) {
-
   # input validation
   check_string(search_text, allow_null = TRUE)
   check_string(icon, allow_null = TRUE)
@@ -71,6 +70,16 @@ within_extent <- function(
     token$access_token,
     places_url()
   )
+
+  if (!is.null(res_raw[["error"]])) {
+    rlang::abort(
+      c(
+        unlist(res_raw$error$details),
+        res_raw$error$message,
+        sprintf("Error code: %s", res_raw$error$code)
+      )
+    )
+  }
 
   # TODO make a check to see if the result was NULL
   # if so, return an error
