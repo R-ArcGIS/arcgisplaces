@@ -2,7 +2,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# arcgisplaces
+# arcgisplaces <img src="man/figures/logo.png" align="right" height="138" alt="" />
 
 <!-- badges: start -->
 
@@ -96,22 +96,6 @@ You can **search for places near a location** with `near_point()`.
 ``` r
 coffee <- near_point(x = -122.334, y = 47.655, search_text = "Coffee")
 coffee
-#> Simple feature collection with 8 features and 5 fields
-#> Geometry type: POINT
-#> Dimension:     XY
-#> Bounding box:  xmin: -122.3426 ymin: 47.65539 xmax: -122.3255 ymax: 47.66175
-#> Geodetic CRS:  WGS 84
-#> # A data frame: 8 × 6
-#>   place_id             name  distance categories icon              geometry
-#> * <chr>                <chr>    <dbl> <I<list>>  <chr>          <POINT [°]>
-#> 1 f6059fc575735b5e3f5… Irwi…      97  <df>       <NA>  (-122.3328 47.65539)
-#> 2 88a10ccf031f02ef269… Fuel…     724. <df>       <NA>  (-122.3369 47.66122)
-#> 3 5cc2d40bf37bff28738… Youn…     728. <df>       <NA>  (-122.3331 47.66152)
-#> 4 a8c6da1aa0d08fe96e5… Frid…     741. <df>       <NA>   (-122.342 47.65895)
-#> 5 906da2fe5164619199a… Star…     767. <df>       <NA>  (-122.3361 47.66175)
-#> 6 957c39de6e0a0eb8afe… Mosa…     774  <df>       <NA>  (-122.3276 47.66048)
-#> 7 4bdfa82268e67a698d0… A Mu…     964. <df>       <NA>  (-122.3255 47.66149)
-#> 8 090286b411e3337850e… The …     976. <df>       <NA>  (-122.3426 47.66162)
 ```
 
 Locations are returned as an sf object with the place ID, the place
@@ -143,22 +127,6 @@ details <- place_details(
 )
 
 details[c("price", "user")]
-#> Simple feature collection with 8 features and 2 fields
-#> Geometry type: POINT
-#> Dimension:     XY
-#> Bounding box:  xmin: Inf ymin: Inf xmax: -Inf ymax: -Inf
-#> Geodetic CRS:  WGS 84
-#> # A data frame: 8 × 3
-#>   price     user    location
-#> * <chr>    <dbl> <POINT [°]>
-#> 1 Cheap      4.1       EMPTY
-#> 2 Cheap      3.9       EMPTY
-#> 3 <NA>      NA         EMPTY
-#> 4 Moderate  NA         EMPTY
-#> 5 Cheap      3.4       EMPTY
-#> 6 Cheap      3         EMPTY
-#> 7 Cheap      4         EMPTY
-#> 8 <NA>      NA         EMPTY
 ```
 
 Or, you can search for places within a bounding box using
@@ -172,23 +140,4 @@ bakeries <- within_extent(
 )
 
 bakeries[c("name")]
-#> Simple feature collection with 24 features and 1 field
-#> Geometry type: POINT
-#> Dimension:     XY
-#> Bounding box:  xmin: -70.356 ymin: 43.588 xmax: -70.176 ymax: 43.7182
-#> Geodetic CRS:  WGS 84
-#> # A data frame: 24 × 2
-#>    name                                geometry
-#>  * <chr>                            <POINT [°]>
-#>  1 Panera Bread            (-70.32966 43.67791)
-#>  2 Crumbl Cookies          (-70.33067 43.67675)
-#>  3 Electric Bike Cafe       (-70.2864 43.63655)
-#>  4 BenReuben’s Knishery    (-70.25299 43.63748)
-#>  5 Two Fat Cats Bakery      (-70.26101 43.6327)
-#>  6 Auntie Anne's           (-70.33517 43.63372)
-#>  7 Lolli and Pops          (-70.33512 43.63377)
-#>  8 Panera Bread              (-70.3303 43.6367)
-#>  9 Cookie Jar Pastry Shop  (-70.22644 43.63367)
-#> 10 Bake Maine Pottery Cafe (-70.25334 43.66708)
-#> # ℹ 14 more rows
 ```

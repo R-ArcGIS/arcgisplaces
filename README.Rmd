@@ -9,12 +9,13 @@ format: gfm
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
+  eval = FALSE,
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
 ```
 
-# arcgisplaces
+# arcgisplaces <img src="man/figures/logo.png" align="right" height="138" alt="" />
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
@@ -72,7 +73,6 @@ Understanding categories:
 ```{r include = FALSE}
 library(sf)
 library(pillar)
-
 ```
 
 `{arcgisutils}` is needed for authentication. The Places API supports either using an API key via `auth_key()` or one generated via OAuth2 using either `auth_client()` or `auth_code()`. See the [Places API documentation](https://developers.arcgis.com/rest/places/#authentication) for more.
