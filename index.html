@@ -7,12 +7,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Search for POIs using ArcGIS Places Service • arcgisplaces</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Search for POIs using ArcGIS Places Service">
 <meta name="description" content="The ArcGIS Places service is a ready-to-use location service that can search for businesses and geographic locations around the world. It allows you to find, locate, and discover detailed information about each place. Query for places near a point, within a bounding box, filter based on categories, or provide search text. arcgisplaces integrates with sf for out of the box compatibility with other spatial libraries. Learn more in the Places service API reference &lt;https://developers.arcgis.com/rest/places/&gt;.">
 <meta property="og:description" content="The ArcGIS Places service is a ready-to-use location service that can search for businesses and geographic locations around the world. It allows you to find, locate, and discover detailed information about each place. Query for places near a point, within a bounding box, filter based on categories, or provide search text. arcgisplaces integrates with sf for out of the box compatibility with other spatial libraries. Learn more in the Places service API reference &lt;https://developers.arcgis.com/rest/places/&gt;.">
+<meta property="og:image" content="/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -47,8 +48,10 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="arcgisplaces">arcgisplaces<a class="anchor" aria-label="anchor" href="#arcgisplaces"></a>
-</h1></div>
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="arcgisplaces-">arcgisplaces <a class="anchor" aria-label="anchor" href="#arcgisplaces-"></a>
+</h1>
+</div>
 <!-- badges: start -->
 
 <p>arcgisplaces is an R package to interface with <a href="https://developers.arcgis.com/rest/places/" class="external-link">ArcGIS Places Service</a>.</p>
@@ -116,23 +119,7 @@
 <p>You can <strong>search for places near a location</strong> with <code><a href="reference/near_point.html">near_point()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">coffee</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/near_point.html">near_point</a></span><span class="op">(</span>x <span class="op">=</span> <span class="op">-</span><span class="fl">122.334</span>, y <span class="op">=</span> <span class="fl">47.655</span>, search_text <span class="op">=</span> <span class="st">"Coffee"</span><span class="op">)</span></span>
-<span><span class="va">coffee</span></span>
-<span><span class="co">#&gt; Simple feature collection with 8 features and 5 fields</span></span>
-<span><span class="co">#&gt; Geometry type: POINT</span></span>
-<span><span class="co">#&gt; Dimension:     XY</span></span>
-<span><span class="co">#&gt; Bounding box:  xmin: -122.3426 ymin: 47.65539 xmax: -122.3255 ymax: 47.66175</span></span>
-<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span><span class="co">#&gt; # A data frame: 8 × 6</span></span>
-<span><span class="co">#&gt;   place_id             name  distance categories icon              geometry</span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;                &lt;chr&gt;    &lt;dbl&gt; &lt;I&lt;list&gt;&gt;  &lt;chr&gt;          &lt;POINT [°]&gt;</span></span>
-<span><span class="co">#&gt; 1 f6059fc575735b5e3f5… Irwi…      97  &lt;df&gt;       &lt;NA&gt;  (-122.3328 47.65539)</span></span>
-<span><span class="co">#&gt; 2 88a10ccf031f02ef269… Fuel…     724. &lt;df&gt;       &lt;NA&gt;  (-122.3369 47.66122)</span></span>
-<span><span class="co">#&gt; 3 5cc2d40bf37bff28738… Youn…     728. &lt;df&gt;       &lt;NA&gt;  (-122.3331 47.66152)</span></span>
-<span><span class="co">#&gt; 4 a8c6da1aa0d08fe96e5… Frid…     741. &lt;df&gt;       &lt;NA&gt;   (-122.342 47.65895)</span></span>
-<span><span class="co">#&gt; 5 906da2fe5164619199a… Star…     767. &lt;df&gt;       &lt;NA&gt;  (-122.3361 47.66175)</span></span>
-<span><span class="co">#&gt; 6 957c39de6e0a0eb8afe… Mosa…     774  &lt;df&gt;       &lt;NA&gt;  (-122.3276 47.66048)</span></span>
-<span><span class="co">#&gt; 7 4bdfa82268e67a698d0… A Mu…     964. &lt;df&gt;       &lt;NA&gt;  (-122.3255 47.66149)</span></span>
-<span><span class="co">#&gt; 8 090286b411e3337850e… The …     976. &lt;df&gt;       &lt;NA&gt;  (-122.3426 47.66162)</span></span></code></pre></div>
+<span><span class="va">coffee</span></span></code></pre></div>
 <p>Locations are returned as an sf object with the place ID, the place name, distance from the search point, a character vector of categories.</p>
 <blockquote>
 <p>[!TIP]</p>
@@ -147,23 +134,7 @@
 <span>  .progress <span class="op">=</span> <span class="cn">FALSE</span> <span class="co"># remove progress bar</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">details</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"price"</span>, <span class="st">"user"</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="co">#&gt; Simple feature collection with 8 features and 2 fields</span></span>
-<span><span class="co">#&gt; Geometry type: POINT</span></span>
-<span><span class="co">#&gt; Dimension:     XY</span></span>
-<span><span class="co">#&gt; Bounding box:  xmin: Inf ymin: Inf xmax: -Inf ymax: -Inf</span></span>
-<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span><span class="co">#&gt; # A data frame: 8 × 3</span></span>
-<span><span class="co">#&gt;   price     user    location</span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;    &lt;dbl&gt; &lt;POINT [°]&gt;</span></span>
-<span><span class="co">#&gt; 1 Cheap      4.1       EMPTY</span></span>
-<span><span class="co">#&gt; 2 Cheap      3.9       EMPTY</span></span>
-<span><span class="co">#&gt; 3 &lt;NA&gt;      NA         EMPTY</span></span>
-<span><span class="co">#&gt; 4 Moderate  NA         EMPTY</span></span>
-<span><span class="co">#&gt; 5 Cheap      3.4       EMPTY</span></span>
-<span><span class="co">#&gt; 6 Cheap      3         EMPTY</span></span>
-<span><span class="co">#&gt; 7 Cheap      4         EMPTY</span></span>
-<span><span class="co">#&gt; 8 &lt;NA&gt;      NA         EMPTY</span></span></code></pre></div>
+<span><span class="va">details</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"price"</span>, <span class="st">"user"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <p>Or, you can search for places within a bounding box using <code><a href="reference/within_extent.html">within_extent()</a></code>. This could be quite handy for searching within current map bounds, for example.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bakeries</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/within_extent.html">within_extent</a></span><span class="op">(</span></span>
@@ -171,26 +142,7 @@
 <span>  category_id <span class="op">=</span> <span class="st">"13002"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">bakeries</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="co">#&gt; Simple feature collection with 24 features and 1 field</span></span>
-<span><span class="co">#&gt; Geometry type: POINT</span></span>
-<span><span class="co">#&gt; Dimension:     XY</span></span>
-<span><span class="co">#&gt; Bounding box:  xmin: -70.356 ymin: 43.588 xmax: -70.176 ymax: 43.7182</span></span>
-<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span><span class="co">#&gt; # A data frame: 24 × 2</span></span>
-<span><span class="co">#&gt;    name                                geometry</span></span>
-<span><span class="co">#&gt;  * &lt;chr&gt;                            &lt;POINT [°]&gt;</span></span>
-<span><span class="co">#&gt;  1 Panera Bread            (-70.32966 43.67791)</span></span>
-<span><span class="co">#&gt;  2 Crumbl Cookies          (-70.33067 43.67675)</span></span>
-<span><span class="co">#&gt;  3 Electric Bike Cafe       (-70.2864 43.63655)</span></span>
-<span><span class="co">#&gt;  4 BenReuben’s Knishery    (-70.25299 43.63748)</span></span>
-<span><span class="co">#&gt;  5 Two Fat Cats Bakery      (-70.26101 43.6327)</span></span>
-<span><span class="co">#&gt;  6 Auntie Anne's           (-70.33517 43.63372)</span></span>
-<span><span class="co">#&gt;  7 Lolli and Pops          (-70.33512 43.63377)</span></span>
-<span><span class="co">#&gt;  8 Panera Bread              (-70.3303 43.6367)</span></span>
-<span><span class="co">#&gt;  9 Cookie Jar Pastry Shop  (-70.22644 43.63367)</span></span>
-<span><span class="co">#&gt; 10 Bake Maine Pottery Cafe (-70.25334 43.66708)</span></span>
-<span><span class="co">#&gt; # ℹ 14 more rows</span></span></code></pre></div>
+<span><span class="va">bakeries</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -242,7 +194,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
